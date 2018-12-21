@@ -1,7 +1,7 @@
 package org.myorg.readabilitychecker.formulas.objects;
 
 /**
- * Buse & Weimer (B&W) formula.
+ * Buse & Weimer (B&W) model.
  *
  * @author <a href="mailto:1120301@isep.ipp.pt">Cláudio Pinto</a>
  */
