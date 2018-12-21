@@ -25,6 +25,9 @@ public class BwLogic {
                 if (blockCount <= 8) {
                     System.out.println(line);
                 } else {
+
+                    raykernel.apps.readability.eval.Main.getReadability(line); // JUNTAR O BLOCO AQUI
+
                     System.out.println(line);
                     blockCount = 1;
                 }
