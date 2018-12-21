@@ -50,10 +50,10 @@ public class SresLogicTest {
         sres3 = new SRES(0, 0, 0);
         sres4 = null;
 
-        scf1 = new SourceCodeFile(f, null, sres1, null);
-        scf2 = new SourceCodeFile(f, null, sres2, null);
-        scf3 = new SourceCodeFile(f, null, sres3, null);
-        scf4 = new SourceCodeFile(null, null, sres4, null);
+//        scf1 = new SourceCodeFile(f, null, sres1, null);
+//        scf2 = new SourceCodeFile(f, null, sres2, null);
+//        scf3 = new SourceCodeFile(f, null, sres3, null);
+//        scf4 = new SourceCodeFile(null, null, sres4, null);
 
         javaFiles.add(scf1);
         javaFiles.add(scf2);

@@ -30,6 +30,7 @@ import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
+import org.myorg.readabilitychecker.formulas.logic.BwLogic;
 
 /**
  * Main window of the application.
@@ -516,35 +517,47 @@ public class ReadabilityFrame extends javax.swing.JFrame {
             System.out.println(sresProjectReadabilityValue);
         }
 
-        if (!disablePHD.isSelected()) {
-            PhdLogic pl = new PhdLogic();
+        //        if (!disablePHD.isSelected()) {
+//            PhdLogic pl = new PhdLogic();
+//
+//            try {
+//                currentlyOpenedFile = SourceCodeFileLogic.getCurrentlyOpenedFile();
+//
+//                if (currentlyOpenedFile != null) {
+//                    JavaParser.getStaticConfiguration().setAttributeComments(true);        // configure JavaParser to handle comments
+//
+//                    CompilationUnit cu = null;
+//                    try {
+//                        cu = JavaParser.parse(currentlyOpenedFile.getFile());
+//                    } catch (ParseProblemException ex) {
+//                        System.out.println(ex);
+//                    }
+//
+//                    ArrayList<Method> fileMethods = currentlyOpenedFile.getMethods();
+//                    if ((fileMethods == null || fileMethods.isEmpty()) && cu != null) {
+//                        fileMethods = scfl.getMethodsFromFile(cu);
+//                    }
+//
+//                    phdMethodsAnalyzed = pl.analyzeMethods(fileMethods, PHD_MAX_LINES, phdMethodsAnalyzed);
+//
+//                    currentlyOpenedFile.setMethods(fileMethods);
+//                }
+//            } catch (IOException ex) {
+//                Exceptions.printStackTrace(ex);
+//            } catch (Exception ex) {
+//                Exceptions.printStackTrace(ex);
+//            }
+//        }
+        if (!disablePHD.isSelected()) {    // no final, trocar para BW
+            BwLogic bwl = new BwLogic();
+            currentlyOpenedFile = SourceCodeFileLogic.getCurrentlyOpenedFile();
 
-            try {
-                currentlyOpenedFile = SourceCodeFileLogic.getCurrentlyOpenedFile();
-
-                if (currentlyOpenedFile != null) {
-                    JavaParser.getStaticConfiguration().setAttributeComments(true);        // configure JavaParser to handle comments
-
-                    CompilationUnit cu = null;
-                    try {
-                        cu = JavaParser.parse(currentlyOpenedFile.getFile());
-                    } catch (ParseProblemException ex) {
-                        System.out.println(ex);
-                    }
-
-                    ArrayList<Method> fileMethods = currentlyOpenedFile.getMethods();
-                    if ((fileMethods == null || fileMethods.isEmpty()) && cu != null) {
-                        fileMethods = scfl.getMethodsFromFile(cu);
-                    }
-
-                    phdMethodsAnalyzed = pl.analyzeMethods(fileMethods, PHD_MAX_LINES, phdMethodsAnalyzed);
-
-                    currentlyOpenedFile.setMethods(fileMethods);
+            if (currentlyOpenedFile != null) {
+                try {
+                    bwl.analyzeFile(currentlyOpenedFile);
+                } catch (IOException ex) {
+                    Exceptions.printStackTrace(ex);
                 }
-            } catch (IOException ex) {
-                Exceptions.printStackTrace(ex);
-            } catch (Exception ex) {
-                Exceptions.printStackTrace(ex);
             }
         }
 
@@ -682,7 +695,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
      */
     private void jBtnHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnHelpActionPerformed
         String content = "<html>"
-                + "<b>Readability Checker 1.0.4</b><br />"
+                + "<b>Readability Checker 1.1</b><br />"
                 + "<br />"
                 + "This is a plugin for the NetBeans IDE that estimates Java code readability using three different software readability formulas.<br />"
                 + "<br />"

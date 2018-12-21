@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.myorg</groupId>
     <artifactId>ReadabilityChecker</artifactId>
-    <version>1.0.4</version>
+    <version>1.1</version>
     <packaging>nbm</packaging>
     <profiles>
         <profile>
@@ -50,7 +50,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.15</version>
                 <configuration>
-                    <skipTests>false</skipTests> <!-- Change value to true to skip tests on build -->
+                    <skipTests>true</skipTests> <!-- Change value to true to skip tests on build -->
                 </configuration>
             </plugin>
         </plugins>

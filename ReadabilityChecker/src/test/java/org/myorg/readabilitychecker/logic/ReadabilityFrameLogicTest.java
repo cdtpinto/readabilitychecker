@@ -75,10 +75,10 @@ public class ReadabilityFrameLogicTest {
         //phd1 = new PHD(30.2, 6, 3.6, 0.99);
         //phd2 = new PHD(97.12, 10, 6, 0.66);
         //phd3 = new PHD(0, 0, 0, 0);
-        scf1 = new SourceCodeFile(f, cr1, sres1, null);
-        scf2 = new SourceCodeFile(f, cr2, sres2, methods);
-        scf3 = new SourceCodeFile(f, cr3, sres3, null);
-        scf4 = new SourceCodeFile(null, null, null, null);
+//        scf1 = new SourceCodeFile(f, cr1, sres1, null);
+//        scf2 = new SourceCodeFile(f, cr2, sres2, methods);
+//        scf3 = new SourceCodeFile(f, cr3, sres3, null);
+//        scf4 = new SourceCodeFile(null, null, null, null);
 
         javaFiles.add(scf1);
         javaFiles.add(scf2);

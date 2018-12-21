@@ -83,10 +83,10 @@ public class CommentsRatioLogicTest {
         cr3 = new CommentsRatio(0, 0, 0);
         cr4 = null;
 
-        scf1 = new SourceCodeFile(f, cr1, null, null);
-        scf2 = new SourceCodeFile(f, cr2, null, null);
-        scf3 = new SourceCodeFile(f, cr3, null, null);
-        scf4 = new SourceCodeFile(null, cr4, null, null);
+//        scf1 = new SourceCodeFile(f, cr1, null, null);
+//        scf2 = new SourceCodeFile(f, cr2, null, null);
+//        scf3 = new SourceCodeFile(f, cr3, null, null);
+//        scf4 = new SourceCodeFile(null, cr4, null, null);
 
         javaFiles.add(scf1);
         javaFiles.add(scf2);
