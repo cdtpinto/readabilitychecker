@@ -44,15 +44,17 @@ public class ReadabilityFrame extends javax.swing.JFrame {
     private List<SourceCodeFile> javaFiles = null;
     private double crProjectReadabilityValue;
     private double sresProjectReadabilityValue;
+    private double bwProjectReadabilityValue;
     private static final int PHD_MAX_LINES = 11;    // Defines the maximum number of lines that a method can have to be evaluated by the PHD formula
     private int phdMethodsAnalyzed; // Number of methods analyzed by PHD for some class (method LOC <= phdMaxLines)
     private SourceCodeFile currentlyOpenedFile; // The currently opened Java file in the IDE by the user
     private String commentsRatioDetailedResults;
     private String sresDetailedResults;
-    private String phdDetailedResults;
+    private String bwDetailedResults;
     private JTextArea jTACommentsRatioDetailedResults;
-    private JTextArea jTASRESDetailedResults;
-    private JTextArea jTAPHDDetailedResults;
+    private JTextArea jTASresDetailedResults;
+    //private JTextArea jTAPHDDetailedResults;
+    private JTextArea jTABwDetailedResults;
 
     /**
      * Creates new form ReadabilityFrame.
@@ -79,15 +81,15 @@ public class ReadabilityFrame extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         disableCommentsRatio = new javax.swing.JCheckBox();
         disableSRES = new javax.swing.JCheckBox();
-        disablePHD = new javax.swing.JCheckBox();
+        disableBw = new javax.swing.JCheckBox();
         jPanelSRES = new javax.swing.JPanel();
         jLblSRES = new javax.swing.JLabel();
         jBtnSRESDetailed = new javax.swing.JButton();
         jTFSRES = new javax.swing.JTextField();
-        jPanelPHD = new javax.swing.JPanel();
-        jTFPHD = new javax.swing.JTextField();
-        jBtnPHDDetailed = new javax.swing.JButton();
-        jLblPHD = new javax.swing.JLabel();
+        jPanelBw = new javax.swing.JPanel();
+        jTFBw = new javax.swing.JTextField();
+        jBtnBwDetailed = new javax.swing.JButton();
+        jLblBw = new javax.swing.JLabel();
         jBtnCheckReadability = new javax.swing.JButton();
         jBtnExportResults = new javax.swing.JButton();
         jBtnHelp = new javax.swing.JButton();
@@ -163,10 +165,10 @@ public class ReadabilityFrame extends javax.swing.JFrame {
             }
         });
 
-        org.openide.awt.Mnemonics.setLocalizedText(disablePHD, org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.disablePHD.text")); // NOI18N
-        disablePHD.addActionListener(new java.awt.event.ActionListener() {
+        org.openide.awt.Mnemonics.setLocalizedText(disableBw, org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.disableBw.text")); // NOI18N
+        disableBw.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                disablePHDActionPerformed(evt);
+                disableBwActionPerformed(evt);
             }
         });
 
@@ -177,7 +179,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(disablePHD)
+                    .addComponent(disableBw)
                     .addComponent(disableSRES)
                     .addComponent(disableCommentsRatio))
                 .addContainerGap())
@@ -190,7 +192,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addComponent(disableSRES)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(disablePHD)
+                .addComponent(disableBw)
                 .addGap(16, 16, 16))
         );
 
@@ -237,46 +239,48 @@ public class ReadabilityFrame extends javax.swing.JFrame {
                 .addGap(17, 17, 17))
         );
 
-        jTFPHD.setEditable(false);
-        jTFPHD.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTFPHD.setText(org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.jTFPHD.text")); // NOI18N
-        jTFPHD.setPreferredSize(new java.awt.Dimension(95, 28));
+        jTFBw.setEditable(false);
+        jTFBw.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTFBw.setText(org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.jTFBw.text")); // NOI18N
+        jTFBw.setPreferredSize(new java.awt.Dimension(95, 28));
 
-        org.openide.awt.Mnemonics.setLocalizedText(jBtnPHDDetailed, org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.jBtnPHDDetailed.text")); // NOI18N
-        jBtnPHDDetailed.addActionListener(new java.awt.event.ActionListener() {
+        org.openide.awt.Mnemonics.setLocalizedText(jBtnBwDetailed, org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.jBtnBwDetailed.text")); // NOI18N
+        jBtnBwDetailed.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnPHDDetailedActionPerformed(evt);
+                jBtnBwDetailedActionPerformed(evt);
             }
         });
 
-        jLblPHD.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        org.openide.awt.Mnemonics.setLocalizedText(jLblPHD, org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.jLblPHD.text")); // NOI18N
-        jLblPHD.setToolTipText(org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.jLblPHD.toolTipText")); // NOI18N
+        jLblBw.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jLblBw, org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.jLblBw.text")); // NOI18N
+        jLblBw.setToolTipText(org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.jLblBw.toolTipText")); // NOI18N
 
-        javax.swing.GroupLayout jPanelPHDLayout = new javax.swing.GroupLayout(jPanelPHD);
-        jPanelPHD.setLayout(jPanelPHDLayout);
-        jPanelPHDLayout.setHorizontalGroup(
-            jPanelPHDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelPHDLayout.createSequentialGroup()
+        javax.swing.GroupLayout jPanelBwLayout = new javax.swing.GroupLayout(jPanelBw);
+        jPanelBw.setLayout(jPanelBwLayout);
+        jPanelBwLayout.setHorizontalGroup(
+            jPanelBwLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelBwLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLblPHD)
+                .addComponent(jLblBw)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTFBw, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jTFPHD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
-                .addComponent(jBtnPHDDetailed)
+                .addComponent(jBtnBwDetailed)
                 .addContainerGap())
         );
-        jPanelPHDLayout.setVerticalGroup(
-            jPanelPHDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelPHDLayout.createSequentialGroup()
+        jPanelBwLayout.setVerticalGroup(
+            jPanelBwLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelBwLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelPHDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jBtnPHDDetailed, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanelPHDLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLblPHD, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTFPHD, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanelBwLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jBtnBwDetailed, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanelBwLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLblBw, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTFBw, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
+
+        jLblBw.getAccessibleContext().setAccessibleName(org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.jLblBw.AccessibleContext.accessibleName")); // NOI18N
 
         org.openide.awt.Mnemonics.setLocalizedText(jBtnCheckReadability, org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.jBtnCheckReadability.text")); // NOI18N
         jBtnCheckReadability.setMaximumSize(new java.awt.Dimension(120, 25));
@@ -312,7 +316,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanelSRES, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanelPHD, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanelBw, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanelCommentsRatio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -336,7 +340,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanelSRES, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanelPHD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanelBw, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -361,12 +365,12 @@ public class ReadabilityFrame extends javax.swing.JFrame {
         if (jTFSRES.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "SRES value not calculated yet!", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            jTASRESDetailedResults = new JTextArea();
-            jTASRESDetailedResults.setText(sresDetailedResults);
-            jTASRESDetailedResults.setCaretPosition(0);
-            jTASRESDetailedResults.setEditable(false);
+            jTASresDetailedResults = new JTextArea();
+            jTASresDetailedResults.setText(sresDetailedResults);
+            jTASresDetailedResults.setCaretPosition(0);
+            jTASresDetailedResults.setEditable(false);
 
-            JScrollPane scrollPane = new JScrollPane(jTASRESDetailedResults);
+            JScrollPane scrollPane = new JScrollPane(jTASresDetailedResults);
             scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
             scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
             scrollPane.setPreferredSize(new Dimension(310, 400));
@@ -417,42 +421,42 @@ public class ReadabilityFrame extends javax.swing.JFrame {
     /**
      * Shows the detailed results for the PHD formula analysis.
      */
-    private void jBtnPHDDetailedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnPHDDetailedActionPerformed
-        if (jTFPHD.getText().isEmpty()) {
+    private void jBtnBwDetailedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBwDetailedActionPerformed
+        if (jTFBw.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "PHD value not calculated yet!", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            jTAPHDDetailedResults = new JTextArea();
+            jTABwDetailedResults = new JTextArea();
 
             if (currentlyOpenedFile != null) {
                 if (currentlyOpenedFile.getMethods().isEmpty() || phdMethodsAnalyzed == 0) {
-                    jTAPHDDetailedResults.append("No methods to show!");
+                    jTABwDetailedResults.append("No methods to show!");
                 } else {
-                    jTAPHDDetailedResults.setText(phdDetailedResults);
+                    jTABwDetailedResults.setText(bwDetailedResults);
                 }
             } else {
-                jTAPHDDetailedResults.append("No methods to show!");
+                jTABwDetailedResults.append("No methods to show!");
             }
 
-            jTAPHDDetailedResults.setCaretPosition(0);
-            jTAPHDDetailedResults.setEditable(false);
+            jTABwDetailedResults.setCaretPosition(0);
+            jTABwDetailedResults.setEditable(false);
 
-            JScrollPane scrollPane = new JScrollPane(jTAPHDDetailedResults);
+            JScrollPane scrollPane = new JScrollPane(jTABwDetailedResults);
             scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
             scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
             scrollPane.setPreferredSize(new Dimension(400, 350));
 
             JOptionPane.showMessageDialog(null, scrollPane, "PHD Detailed Results", JOptionPane.PLAIN_MESSAGE);
         }
-    }//GEN-LAST:event_jBtnPHDDetailedActionPerformed
+    }//GEN-LAST:event_jBtnBwDetailedActionPerformed
 
     /**
      * Disables the PHD formula analysis.
      */
-    private void disablePHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disablePHDActionPerformed
-        jTFPHD.setText(null);
-        jTFPHD.setToolTipText(null);
-        ReadabilityFrameLogic.disableComponents(jPanelPHD, !disablePHD.isSelected());
-    }//GEN-LAST:event_disablePHDActionPerformed
+    private void disableBwActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disableBwActionPerformed
+        jTFBw.setText(null);
+        jTFBw.setToolTipText(null);
+        ReadabilityFrameLogic.disableComponents(jPanelBw, !disableBw.isSelected());
+    }//GEN-LAST:event_disableBwActionPerformed
 
     /**
      * Triggers the readability analysis.
@@ -460,7 +464,8 @@ public class ReadabilityFrame extends javax.swing.JFrame {
     private void jBtnCheckReadabilityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCheckReadabilityActionPerformed
         crProjectReadabilityValue = 0;
         sresProjectReadabilityValue = 0;
-        phdMethodsAnalyzed = 0;
+        bwProjectReadabilityValue = 0;
+        //phdMethodsAnalyzed = 0;
         SourceCodeFileLogic scfl = new SourceCodeFileLogic();
 
         /* Get all Java files from the opened project */
@@ -516,54 +521,22 @@ public class ReadabilityFrame extends javax.swing.JFrame {
                 sl.analyzeFile(file);
             }
             sresProjectReadabilityValue = sl.getReadabilityOfProject(javaFiles);
-            System.out.println(sresProjectReadabilityValue);
         }
 
-        //        if (!disablePHD.isSelected()) {
-//            PhdLogic pl = new PhdLogic();
-//
-//            try {
-//                currentlyOpenedFile = SourceCodeFileLogic.getCurrentlyOpenedFile();
-//
-//                if (currentlyOpenedFile != null) {
-//                    JavaParser.getStaticConfiguration().setAttributeComments(true);        // configure JavaParser to handle comments
-//
-//                    CompilationUnit cu = null;
-//                    try {
-//                        cu = JavaParser.parse(currentlyOpenedFile.getFile());
-//                    } catch (ParseProblemException ex) {
-//                        System.out.println(ex);
-//                    }
-//
-//                    ArrayList<Method> fileMethods = currentlyOpenedFile.getMethods();
-//                    if ((fileMethods == null || fileMethods.isEmpty()) && cu != null) {
-//                        fileMethods = scfl.getMethodsFromFile(cu);
-//                    }
-//
-//                    phdMethodsAnalyzed = pl.analyzeMethods(fileMethods, PHD_MAX_LINES, phdMethodsAnalyzed);
-//
-//                    currentlyOpenedFile.setMethods(fileMethods);
-//                }
-//            } catch (IOException ex) {
-//                Exceptions.printStackTrace(ex);
-//            } catch (Exception ex) {
-//                Exceptions.printStackTrace(ex);
-//            }
-//        }
-        if (!disablePHD.isSelected()) {    // no final, trocar para BW
+        if (!disableBw.isSelected()) {
             BwLogic bwl = new BwLogic();
-            currentlyOpenedFile = SourceCodeFileLogic.getCurrentlyOpenedFile();
 
-            if (currentlyOpenedFile != null) {
+            for (SourceCodeFile file : javaFiles) {
                 try {
-                    bwl.analyzeFile(currentlyOpenedFile);
+                    bwl.analyzeFile(file);
                 } catch (IOException ex) {
                     Exceptions.printStackTrace(ex);
                 }
             }
+            bwProjectReadabilityValue = bwl.getReadabilityOfProject(javaFiles);
         }
 
-        if (javaFiles != null && !javaFiles.isEmpty()) {                                   // There is an opened project
+        if (javaFiles != null && !javaFiles.isEmpty()) {    // There is an opened project
             /* Changes the text fields values and tooltip texts */
             if (!disableCommentsRatio.isSelected()) {
                 if (crProjectReadabilityValue == 0.0) {
@@ -589,27 +562,27 @@ public class ReadabilityFrame extends javax.swing.JFrame {
                 sresDetailedResults = SresLogic.getDetailedResults(javaFiles);
             }
 
-            if (!disablePHD.isSelected()) {
-                if (phdMethodsAnalyzed == 1) {
-                    jTFPHD.setText(String.valueOf(String.valueOf(phdMethodsAnalyzed)) + " method analyzed");
-                    jTFPHD.setToolTipText("Methods From The Opened File");
+            if (!disableBw.isSelected()) {
+                if (bwProjectReadabilityValue == 0.0) {
+                    jTFBw.setText("n/a");
+                    jTFBw.setToolTipText(null);
                 } else {
-                    jTFPHD.setText(String.valueOf(String.valueOf(phdMethodsAnalyzed)) + " methods analyzed");
-                    jTFPHD.setToolTipText("Methods From The Opened File");
+                    jTFBw.setText(String.valueOf(String.valueOf(new DecimalFormat("#0.00").format(bwProjectReadabilityValue))));
+                    jTFBw.setToolTipText("Project Readability");
                 }
 
-                phdDetailedResults = PhdLogic.getDetailedResults(currentlyOpenedFile);
+                sresDetailedResults = SresLogic.getDetailedResults(javaFiles);
             }
         } else {
             /* Clear filled fields */
             jTFCommentsRatio.setText(null);
             jTFSRES.setText(null);
-            jTFPHD.setText(null);
+            jTFBw.setText(null);
 
             /* Clear tooltip texts */
             jTFCommentsRatio.setToolTipText(null);
             jTFSRES.setToolTipText(null);
-            jTFPHD.setToolTipText(null);
+            jTFBw.setToolTipText(null);
         }
     }//GEN-LAST:event_jBtnCheckReadabilityActionPerformed
 
@@ -617,7 +590,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
      * Exports the detailed results for all the formulas in a text file.
      */
     private void jBtnExportResultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExportResultsActionPerformed
-        if (jTFCommentsRatio.getText().isEmpty() && jTFSRES.getText().isEmpty() && jTFPHD.getText().isEmpty()) {
+        if (jTFCommentsRatio.getText().isEmpty() && jTFSRES.getText().isEmpty() && jTFBw.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "No readability values calculated yet!", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             StringBuilder output = new StringBuilder();
@@ -653,14 +626,14 @@ public class ReadabilityFrame extends javax.swing.JFrame {
                 output.append(System.lineSeparator());
             }
 
-            if (!jTFPHD.getText().isEmpty()) {
+            if (!jTFBw.getText().isEmpty()) {
                 output.append("# PHD #");
                 output.append(System.lineSeparator());
                 output.append(System.lineSeparator());
                 output.append("Number of methods analyzed: " + phdMethodsAnalyzed);
                 output.append(System.lineSeparator());
                 output.append(System.lineSeparator());
-                output.append(phdDetailedResults);
+                output.append(bwDetailedResults);
                 output.append(System.lineSeparator());
             }
 
@@ -812,24 +785,24 @@ public class ReadabilityFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox disableBw;
     private javax.swing.JCheckBox disableCommentsRatio;
-    private javax.swing.JCheckBox disablePHD;
     private javax.swing.JCheckBox disableSRES;
+    private javax.swing.JButton jBtnBwDetailed;
     private javax.swing.JButton jBtnCheckReadability;
     private javax.swing.JButton jBtnCommentsRatioDetailed;
     private javax.swing.JButton jBtnExportResults;
     private javax.swing.JButton jBtnHelp;
-    private javax.swing.JButton jBtnPHDDetailed;
     private javax.swing.JButton jBtnSRESDetailed;
+    private javax.swing.JLabel jLblBw;
     private javax.swing.JLabel jLblCommentsRatio;
-    private javax.swing.JLabel jLblPHD;
     private javax.swing.JLabel jLblSRES;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanelBw;
     private javax.swing.JPanel jPanelCommentsRatio;
-    private javax.swing.JPanel jPanelPHD;
     private javax.swing.JPanel jPanelSRES;
+    private javax.swing.JTextField jTFBw;
     private javax.swing.JTextField jTFCommentsRatio;
-    private javax.swing.JTextField jTFPHD;
     private javax.swing.JTextField jTFSRES;
     // End of variables declaration//GEN-END:variables
 }

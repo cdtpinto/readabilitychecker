@@ -3,6 +3,7 @@ package org.myorg.readabilitychecker.formulas.logic;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.List;
 import org.myorg.readabilitychecker.codeabstractionlevels.SourceCodeFile;
 import org.myorg.readabilitychecker.formulas.objects.BW;
 
@@ -47,5 +48,25 @@ public class BwLogic {
 
         BW bw = new BW(value);
         scf.setBw(bw);
+    }
+
+    public double getReadabilityOfProject(List<SourceCodeFile> sourceCodeFiles) {
+        double sumReadabilityValues = 0;
+        int ignoredFiles = 0;
+
+        /* Sum the readability values of each file and ignore files whose readability value was not calculated */
+        for (SourceCodeFile file : sourceCodeFiles) {
+            if (file.getBw() == null || file.getBw().getValue() == 0) {
+                ignoredFiles++;
+            } else {
+                sumReadabilityValues += file.getBw().getValue();
+            }
+        }
+
+        if (sumReadabilityValues == 0) {
+            return 0;
+        } else {
+            return sumReadabilityValues / (double) (sourceCodeFiles.size() - ignoredFiles);
+        }
     }
 }
