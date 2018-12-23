@@ -19,7 +19,6 @@ import javax.swing.ScrollPaneConstants;
 import org.myorg.readabilitychecker.codeabstractionlevels.Method;
 import org.myorg.readabilitychecker.codeabstractionlevels.SourceCodeFile;
 import org.myorg.readabilitychecker.formulas.logic.CommentsRatioLogic;
-import org.myorg.readabilitychecker.formulas.logic.PhdLogic;
 import org.myorg.readabilitychecker.formulas.logic.SresLogic;
 import org.myorg.readabilitychecker.formulas.objects.CommentsRatio;
 import org.myorg.readabilitychecker.logic.ReadabilityFrameLogic;
@@ -40,20 +39,16 @@ import org.myorg.readabilitychecker.formulas.logic.BwLogic;
 public class ReadabilityFrame extends javax.swing.JFrame {
 
     //private static final Logger LOGGER = Logger.getLogger(ReadabilityFrame.class.getName());
-    private double version = 1.1; // current Readability Checker version
+    private final double version = 1.1; // current Readability Checker version
     private List<SourceCodeFile> javaFiles = null;
     private double crProjectReadabilityValue;
     private double sresProjectReadabilityValue;
     private double bwProjectReadabilityValue;
-    private static final int PHD_MAX_LINES = 11;    // Defines the maximum number of lines that a method can have to be evaluated by the PHD formula
-    private int phdMethodsAnalyzed; // Number of methods analyzed by PHD for some class (method LOC <= phdMaxLines)
-    private SourceCodeFile currentlyOpenedFile; // The currently opened Java file in the IDE by the user
     private String commentsRatioDetailedResults;
     private String sresDetailedResults;
     private String bwDetailedResults;
     private JTextArea jTACommentsRatioDetailedResults;
     private JTextArea jTASresDetailedResults;
-    //private JTextArea jTAPHDDetailedResults;
     private JTextArea jTABwDetailedResults;
 
     /**
@@ -80,12 +75,12 @@ public class ReadabilityFrame extends javax.swing.JFrame {
         jBtnCommentsRatioDetailed = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         disableCommentsRatio = new javax.swing.JCheckBox();
-        disableSRES = new javax.swing.JCheckBox();
+        disableSres = new javax.swing.JCheckBox();
         disableBw = new javax.swing.JCheckBox();
-        jPanelSRES = new javax.swing.JPanel();
-        jLblSRES = new javax.swing.JLabel();
-        jBtnSRESDetailed = new javax.swing.JButton();
-        jTFSRES = new javax.swing.JTextField();
+        jPanelSres = new javax.swing.JPanel();
+        jLblSres = new javax.swing.JLabel();
+        jBtnSresDetailed = new javax.swing.JButton();
+        jTFSres = new javax.swing.JTextField();
         jPanelBw = new javax.swing.JPanel();
         jTFBw = new javax.swing.JTextField();
         jBtnBwDetailed = new javax.swing.JButton();
@@ -158,10 +153,10 @@ public class ReadabilityFrame extends javax.swing.JFrame {
             }
         });
 
-        org.openide.awt.Mnemonics.setLocalizedText(disableSRES, org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.disableSRES.text")); // NOI18N
-        disableSRES.addActionListener(new java.awt.event.ActionListener() {
+        org.openide.awt.Mnemonics.setLocalizedText(disableSres, org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.disableSres.text")); // NOI18N
+        disableSres.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                disableSRESActionPerformed(evt);
+                disableSresActionPerformed(evt);
             }
         });
 
@@ -180,7 +175,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(disableBw)
-                    .addComponent(disableSRES)
+                    .addComponent(disableSres)
                     .addComponent(disableCommentsRatio))
                 .addContainerGap())
         );
@@ -190,51 +185,51 @@ public class ReadabilityFrame extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addComponent(disableCommentsRatio)
                 .addGap(32, 32, 32)
-                .addComponent(disableSRES)
+                .addComponent(disableSres)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(disableBw)
                 .addGap(16, 16, 16))
         );
 
-        jLblSRES.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        org.openide.awt.Mnemonics.setLocalizedText(jLblSRES, org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.jLblSRES.text")); // NOI18N
-        jLblSRES.setToolTipText(org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.jLblSRES.toolTipText")); // NOI18N
+        jLblSres.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jLblSres, org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.jLblSres.text")); // NOI18N
+        jLblSres.setToolTipText(org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.jLblSres.toolTipText")); // NOI18N
 
-        org.openide.awt.Mnemonics.setLocalizedText(jBtnSRESDetailed, org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.jBtnSRESDetailed.text")); // NOI18N
-        jBtnSRESDetailed.setActionCommand(org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.jBtnSRESDetailed.actionCommand")); // NOI18N
-        jBtnSRESDetailed.addActionListener(new java.awt.event.ActionListener() {
+        org.openide.awt.Mnemonics.setLocalizedText(jBtnSresDetailed, org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.jBtnSresDetailed.text")); // NOI18N
+        jBtnSresDetailed.setActionCommand(org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.jBtnSresDetailed.actionCommand")); // NOI18N
+        jBtnSresDetailed.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnSRESDetailedActionPerformed(evt);
+                jBtnSresDetailedActionPerformed(evt);
             }
         });
 
-        jTFSRES.setEditable(false);
-        jTFSRES.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jTFSRES.setText(org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.jTFSRES.text")); // NOI18N
-        jTFSRES.setPreferredSize(new java.awt.Dimension(95, 28));
+        jTFSres.setEditable(false);
+        jTFSres.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTFSres.setText(org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.jTFSres.text")); // NOI18N
+        jTFSres.setPreferredSize(new java.awt.Dimension(95, 28));
 
-        javax.swing.GroupLayout jPanelSRESLayout = new javax.swing.GroupLayout(jPanelSRES);
-        jPanelSRES.setLayout(jPanelSRESLayout);
-        jPanelSRESLayout.setHorizontalGroup(
-            jPanelSRESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelSRESLayout.createSequentialGroup()
+        javax.swing.GroupLayout jPanelSresLayout = new javax.swing.GroupLayout(jPanelSres);
+        jPanelSres.setLayout(jPanelSresLayout);
+        jPanelSresLayout.setHorizontalGroup(
+            jPanelSresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelSresLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLblSRES)
+                .addComponent(jLblSres)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTFSRES, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jTFSres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jBtnSRESDetailed)
+                .addComponent(jBtnSresDetailed)
                 .addContainerGap())
         );
-        jPanelSRESLayout.setVerticalGroup(
-            jPanelSRESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelSRESLayout.createSequentialGroup()
+        jPanelSresLayout.setVerticalGroup(
+            jPanelSresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelSresLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelSRESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jBtnSRESDetailed, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTFSRES, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanelSRESLayout.createSequentialGroup()
-                        .addComponent(jLblSRES)
+                .addGroup(jPanelSresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jBtnSresDetailed, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTFSres, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanelSresLayout.createSequentialGroup()
+                        .addComponent(jLblSres)
                         .addGap(6, 6, 6)))
                 .addGap(17, 17, 17))
         );
@@ -315,7 +310,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanelSRES, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanelSres, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanelBw, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jPanelCommentsRatio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -338,7 +333,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanelCommentsRatio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanelSRES, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanelSres, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanelBw, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -361,8 +356,8 @@ public class ReadabilityFrame extends javax.swing.JFrame {
     /**
      * Shows the detailed results for the SRES formula.
      */
-    private void jBtnSRESDetailedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSRESDetailedActionPerformed
-        if (jTFSRES.getText().isEmpty()) {
+    private void jBtnSresDetailedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSresDetailedActionPerformed
+        if (jTFSres.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "SRES value not calculated yet!", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             jTASresDetailedResults = new JTextArea();
@@ -377,7 +372,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(null, scrollPane, "SRES Detailed Results", JOptionPane.PLAIN_MESSAGE);
         }
-    }//GEN-LAST:event_jBtnSRESDetailedActionPerformed
+    }//GEN-LAST:event_jBtnSresDetailedActionPerformed
 
     /**
      * Shows the detailed results for the Comments Ratio formula analysis.
@@ -412,40 +407,30 @@ public class ReadabilityFrame extends javax.swing.JFrame {
     /**
      * Disables the SRES formula analysis.
      */
-    private void disableSRESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disableSRESActionPerformed
-        jTFSRES.setText(null);
-        jTFSRES.setToolTipText(null);
-        ReadabilityFrameLogic.disableComponents(jPanelSRES, !disableSRES.isSelected());
-    }//GEN-LAST:event_disableSRESActionPerformed
+    private void disableSresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disableSresActionPerformed
+        jTFSres.setText(null);
+        jTFSres.setToolTipText(null);
+        ReadabilityFrameLogic.disableComponents(jPanelSres, !disableSres.isSelected());
+    }//GEN-LAST:event_disableSresActionPerformed
 
     /**
      * Shows the detailed results for the PHD formula analysis.
      */
     private void jBtnBwDetailedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBwDetailedActionPerformed
         if (jTFBw.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "PHD value not calculated yet!", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "B&W value not calculated yet!", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             jTABwDetailedResults = new JTextArea();
-
-            if (currentlyOpenedFile != null) {
-                if (currentlyOpenedFile.getMethods().isEmpty() || phdMethodsAnalyzed == 0) {
-                    jTABwDetailedResults.append("No methods to show!");
-                } else {
-                    jTABwDetailedResults.setText(bwDetailedResults);
-                }
-            } else {
-                jTABwDetailedResults.append("No methods to show!");
-            }
-
+            jTABwDetailedResults.setText(bwDetailedResults);
             jTABwDetailedResults.setCaretPosition(0);
             jTABwDetailedResults.setEditable(false);
 
             JScrollPane scrollPane = new JScrollPane(jTABwDetailedResults);
             scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
             scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-            scrollPane.setPreferredSize(new Dimension(400, 350));
+            scrollPane.setPreferredSize(new Dimension(310, 400));
 
-            JOptionPane.showMessageDialog(null, scrollPane, "PHD Detailed Results", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(null, scrollPane, "B&W Detailed Results", JOptionPane.PLAIN_MESSAGE);
         }
     }//GEN-LAST:event_jBtnBwDetailedActionPerformed
 
@@ -514,7 +499,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
             crProjectReadabilityValue = crl.getReadabilityOfProject(javaFiles);
         }
 
-        if (!disableSRES.isSelected()) {
+        if (!disableSres.isSelected()) {
             SresLogic sl = new SresLogic();
 
             for (SourceCodeFile file : javaFiles) {
@@ -550,13 +535,13 @@ public class ReadabilityFrame extends javax.swing.JFrame {
                 commentsRatioDetailedResults = CommentsRatioLogic.getDetailedResults(javaFiles);
             }
 
-            if (!disableSRES.isSelected()) {
+            if (!disableSres.isSelected()) {
                 if (sresProjectReadabilityValue == 0.0) {
-                    jTFSRES.setText("n/a");
-                    jTFSRES.setToolTipText(null);
+                    jTFSres.setText("n/a");
+                    jTFSres.setToolTipText(null);
                 } else {
-                    jTFSRES.setText(String.valueOf(String.valueOf(new DecimalFormat("#0.00").format(sresProjectReadabilityValue))));
-                    jTFSRES.setToolTipText("Project Readability");
+                    jTFSres.setText(String.valueOf(String.valueOf(new DecimalFormat("#0.00").format(sresProjectReadabilityValue))));
+                    jTFSres.setToolTipText("Project Readability");
                 }
 
                 sresDetailedResults = SresLogic.getDetailedResults(javaFiles);
@@ -571,17 +556,17 @@ public class ReadabilityFrame extends javax.swing.JFrame {
                     jTFBw.setToolTipText("Project Readability");
                 }
 
-                sresDetailedResults = SresLogic.getDetailedResults(javaFiles);
+                bwDetailedResults = BwLogic.getDetailedResults(javaFiles);
             }
         } else {
             /* Clear filled fields */
             jTFCommentsRatio.setText(null);
-            jTFSRES.setText(null);
+            jTFSres.setText(null);
             jTFBw.setText(null);
 
             /* Clear tooltip texts */
             jTFCommentsRatio.setToolTipText(null);
-            jTFSRES.setToolTipText(null);
+            jTFSres.setToolTipText(null);
             jTFBw.setToolTipText(null);
         }
     }//GEN-LAST:event_jBtnCheckReadabilityActionPerformed
@@ -590,7 +575,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
      * Exports the detailed results for all the formulas in a text file.
      */
     private void jBtnExportResultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExportResultsActionPerformed
-        if (jTFCommentsRatio.getText().isEmpty() && jTFSRES.getText().isEmpty() && jTFBw.getText().isEmpty()) {
+        if (jTFCommentsRatio.getText().isEmpty() && jTFSres.getText().isEmpty() && jTFBw.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "No readability values calculated yet!", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             StringBuilder output = new StringBuilder();
@@ -614,11 +599,11 @@ public class ReadabilityFrame extends javax.swing.JFrame {
                 output.append(System.lineSeparator());
             }
 
-            if (!jTFSRES.getText().isEmpty()) {
+            if (!jTFSres.getText().isEmpty()) {
                 output.append("# SRES #");
                 output.append(System.lineSeparator());
                 output.append(System.lineSeparator());
-                output.append("Project readability: " + jTFSRES.getText());
+                output.append("Project readability: " + jTFSres.getText());
                 output.append(System.lineSeparator());
                 output.append(System.lineSeparator());
                 output.append(sresDetailedResults);
@@ -627,10 +612,10 @@ public class ReadabilityFrame extends javax.swing.JFrame {
             }
 
             if (!jTFBw.getText().isEmpty()) {
-                output.append("# PHD #");
+                output.append("# B&W #");
                 output.append(System.lineSeparator());
                 output.append(System.lineSeparator());
-                output.append("Number of methods analyzed: " + phdMethodsAnalyzed);
+                output.append("Project readability: " + jTFBw.getText());
                 output.append(System.lineSeparator());
                 output.append(System.lineSeparator());
                 output.append(bwDetailedResults);
@@ -787,22 +772,22 @@ public class ReadabilityFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox disableBw;
     private javax.swing.JCheckBox disableCommentsRatio;
-    private javax.swing.JCheckBox disableSRES;
+    private javax.swing.JCheckBox disableSres;
     private javax.swing.JButton jBtnBwDetailed;
     private javax.swing.JButton jBtnCheckReadability;
     private javax.swing.JButton jBtnCommentsRatioDetailed;
     private javax.swing.JButton jBtnExportResults;
     private javax.swing.JButton jBtnHelp;
-    private javax.swing.JButton jBtnSRESDetailed;
+    private javax.swing.JButton jBtnSresDetailed;
     private javax.swing.JLabel jLblBw;
     private javax.swing.JLabel jLblCommentsRatio;
-    private javax.swing.JLabel jLblSRES;
+    private javax.swing.JLabel jLblSres;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelBw;
     private javax.swing.JPanel jPanelCommentsRatio;
-    private javax.swing.JPanel jPanelSRES;
+    private javax.swing.JPanel jPanelSres;
     private javax.swing.JTextField jTFBw;
     private javax.swing.JTextField jTFCommentsRatio;
-    private javax.swing.JTextField jTFSRES;
+    private javax.swing.JTextField jTFSres;
     // End of variables declaration//GEN-END:variables
 }

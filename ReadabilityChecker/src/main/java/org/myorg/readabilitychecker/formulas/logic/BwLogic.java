@@ -3,6 +3,7 @@ package org.myorg.readabilitychecker.formulas.logic;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.List;
 import org.myorg.readabilitychecker.codeabstractionlevels.SourceCodeFile;
 import org.myorg.readabilitychecker.formulas.objects.BW;
@@ -69,4 +70,22 @@ public class BwLogic {
             return sumReadabilityValues / (double) (sourceCodeFiles.size() - ignoredFiles);
         }
     }
+
+    public static String getDetailedResults(List<SourceCodeFile> javaFiles) {
+        StringBuilder detailedResults = new StringBuilder();
+
+        for (SourceCodeFile file : javaFiles) {
+            if (file.getFile() != null) {
+                detailedResults.append("File: " + file.getFile().getName());
+                detailedResults.append(System.lineSeparator());
+
+                detailedResults.append("Readability value: " + String.valueOf(new DecimalFormat("#0.00").format(file.getBw().getValue())));
+                detailedResults.append(System.lineSeparator());
+                detailedResults.append(System.lineSeparator());
+            }
+        }
+
+        return detailedResults.toString();
+    }
+
 }
