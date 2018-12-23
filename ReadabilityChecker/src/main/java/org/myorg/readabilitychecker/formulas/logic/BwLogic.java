@@ -14,25 +14,36 @@ import org.myorg.readabilitychecker.formulas.objects.BW;
 public class BwLogic {
 
     public void analyzeFile(SourceCodeFile scf) throws IOException {
-        double value = (double) 0; // CALCULAR!!!
-
-        int blockCount = 0;
+        StringBuilder codeBlock = new StringBuilder();
+        int currentBlockLineCount = 0;
+        int totalBlockCount = 0;
+        double valueSum = (double) 0;
 
         try (BufferedReader br = new BufferedReader(new FileReader(scf.getFile().getAbsoluteFile()))) {
             String line;
             while ((line = br.readLine()) != null) {
-                blockCount++;
-                if (blockCount <= 8) {
-                    System.out.println(line);
+                currentBlockLineCount++;
+                if (currentBlockLineCount <= 8) {
+                    codeBlock.append(line).append('\n');
                 } else {
+                    //System.out.println(codeBlock);
+                    valueSum += raykernel.apps.readability.eval.Main.getReadability(codeBlock.toString());
 
-                    raykernel.apps.readability.eval.Main.getReadability(line); // JUNTAR O BLOCO AQUI
-
-                    System.out.println(line);
-                    blockCount = 1;
+                    totalBlockCount++;
+                    currentBlockLineCount = 1;
+                    codeBlock.setLength(0);
                 }
             }
+
+            // Calculate the final part of the code
+            if (codeBlock.length() != 0) {
+                valueSum += raykernel.apps.readability.eval.Main.getReadability(codeBlock.toString());
+                totalBlockCount++;
+            }
         }
+
+        double value = valueSum / totalBlockCount;
+        System.out.println("value -> " + value);
 
         BW bw = new BW(value);
         scf.setBw(bw);
