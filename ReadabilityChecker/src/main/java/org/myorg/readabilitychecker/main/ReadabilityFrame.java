@@ -40,6 +40,7 @@ import org.myorg.readabilitychecker.formulas.logic.BwLogic;
 public class ReadabilityFrame extends javax.swing.JFrame {
 
     //private static final Logger LOGGER = Logger.getLogger(ReadabilityFrame.class.getName());
+    private double version = 1.1; // current Readability Checker version
     private List<SourceCodeFile> javaFiles = null;
     private double crProjectReadabilityValue;
     private double sresProjectReadabilityValue;
@@ -58,6 +59,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
      */
     public ReadabilityFrame() {
         initComponents();
+        setTitle("Readability Checker " + version);
         setVisible(true);
     }
 
@@ -695,7 +697,9 @@ public class ReadabilityFrame extends javax.swing.JFrame {
      */
     private void jBtnHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnHelpActionPerformed
         String content = "<html>"
-                + "<b>Readability Checker 1.1</b><br />"
+                + "<b>Readability Checker "
+                + version
+                + "</b><br />"
                 + "<br />"
                 + "This is a plugin for the NetBeans IDE that estimates Java code readability using three different software readability formulas.<br />"
                 + "<br />"
