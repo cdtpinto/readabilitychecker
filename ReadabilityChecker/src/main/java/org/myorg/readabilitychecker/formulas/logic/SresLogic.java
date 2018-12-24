@@ -103,7 +103,7 @@ public class SresLogic {
      * Gets the SRES readability value of a project.
      *
      * @param sourceCodeFiles represents every Java file in a project.
-     * @return the SRES readability value of the project.
+     * @return the SRES readability value for the project.
      */
     public double getReadabilityOfProject(List<SourceCodeFile> sourceCodeFiles) throws NullPointerException {
         double sumReadabilityValues = 0;

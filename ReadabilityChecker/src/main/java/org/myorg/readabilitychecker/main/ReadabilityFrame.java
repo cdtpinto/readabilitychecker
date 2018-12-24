@@ -414,7 +414,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_disableSresActionPerformed
 
     /**
-     * Shows the detailed results for the PHD formula analysis.
+     * Shows the detailed results for the B&W metric analysis.
      */
     private void jBtnBwDetailedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBwDetailedActionPerformed
         if (jTFBw.getText().isEmpty()) {
@@ -435,7 +435,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnBwDetailedActionPerformed
 
     /**
-     * Disables the PHD formula analysis.
+     * Disables the B&W metric analysis.
      */
     private void disableBwActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disableBwActionPerformed
         jTFBw.setText(null);
@@ -450,7 +450,6 @@ public class ReadabilityFrame extends javax.swing.JFrame {
         crProjectReadabilityValue = 0;
         sresProjectReadabilityValue = 0;
         bwProjectReadabilityValue = 0;
-        //phdMethodsAnalyzed = 0;
         SourceCodeFileLogic scfl = new SourceCodeFileLogic();
 
         /* Get all Java files from the opened project */
@@ -687,7 +686,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
                 + "<br />"
                 + "<b>B&W</b><br />"
                 + "<br />"
-                + "This is a readability model - not a formula - that considers some characteristics of the code to calculate it's readability.<br />"
+                + "This is a readability metric that considers some characteristics of the code to calculate it's readability.<br />"
                 + "<br />"
                 + "Readability values range from 0 to 1. The closer it gets to 1, the more readable the code is.<br />"
                 + "<br />"

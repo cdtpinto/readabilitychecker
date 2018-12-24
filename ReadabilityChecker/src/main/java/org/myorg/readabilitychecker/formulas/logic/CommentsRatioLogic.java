@@ -155,7 +155,7 @@ public class CommentsRatioLogic {
      * Gets the Comments Ratio readability value of a project.
      *
      * @param sourceCodeFiles represents every Java file in a project.
-     * @return the Comments Ratio readability value of the project.
+     * @return the Comments Ratio readability value for the project.
      */
     public double getReadabilityOfProject(List<SourceCodeFile> sourceCodeFiles) throws NullPointerException {
         double sumReadabilityValues = 0;

@@ -9,12 +9,18 @@ import org.myorg.readabilitychecker.codeabstractionlevels.SourceCodeFile;
 import org.myorg.readabilitychecker.formulas.objects.BW;
 
 /**
- * Contains the logical methods for the Buse & Weimer model.
+ * Contains the logical methods for the B&W metric.
  *
  * @author <a href="mailto:1120301@isep.ipp.pt">Cláudio Pinto</a>
  */
 public class BwLogic {
 
+    /**
+     * Analyzes a given source code file.
+     *
+     * @param scf represents a Java file.
+     * @throws IOException in case there was a problem reading the file.
+     */
     public void analyzeFile(SourceCodeFile scf) throws IOException {
         StringBuilder codeBlock = new StringBuilder();
         int currentBlockLineCount = 0;
@@ -28,7 +34,6 @@ public class BwLogic {
                 if (currentBlockLineCount <= 8) {
                     codeBlock.append(line).append('\n');
                 } else {
-                    //System.out.println(codeBlock);
                     valueSum += raykernel.apps.readability.eval.Main.getReadability(codeBlock.toString());
 
                     totalBlockCount++;
@@ -44,13 +49,15 @@ public class BwLogic {
             }
         }
 
-        double value = valueSum / totalBlockCount;
-        System.out.println("value -> " + value);
-
-        BW bw = new BW(value);
-        scf.setBw(bw);
+        scf.setBw(new BW(valueSum / totalBlockCount));
     }
 
+    /**
+     * Gets the B&W readability value of a project.
+     *
+     * @param sourceCodeFiles represents every Java file in a project.
+     * @return the B&W readability value for the project.
+     */
     public double getReadabilityOfProject(List<SourceCodeFile> sourceCodeFiles) {
         double sumReadabilityValues = 0;
         int ignoredFiles = 0;
@@ -71,6 +78,13 @@ public class BwLogic {
         }
     }
 
+    /**
+     * Gets the detailed results for the B&W readability metric.
+     *
+     * @param javaFiles the Java files of the project tested by B&W.
+     * @return a String with the detailed information for every method tested by
+     * B&W.
+     */
     public static String getDetailedResults(List<SourceCodeFile> javaFiles) {
         StringBuilder detailedResults = new StringBuilder();
 
