@@ -57,6 +57,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
     public ReadabilityFrame() {
         initComponents();
         setTitle("Readability Checker " + version);
+        jLblBw.setText("B&W:"); // a workaround, so the ampersand character (&) is displayed in the ui
         setVisible(true);
     }
 
