@@ -39,12 +39,14 @@ public class BwLogic {
                     totalBlockCount++;
                     currentBlockLineCount = 1;
                     codeBlock.setLength(0);
+                    codeBlock.append(line).append('\n');
                 }
             }
 
             // Calculate the final part of the code
             if (codeBlock.length() != 0) {
                 valueSum += raykernel.apps.readability.eval.Main.getReadability(codeBlock.toString());
+
                 totalBlockCount++;
             }
         }
