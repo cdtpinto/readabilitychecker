@@ -15,7 +15,7 @@ import org.myorg.readabilitychecker.formulas.objects.BW;
  */
 public class BwLogic {
 
-    private static final int CUT_NUM = 8;
+    private static final int BLOCK_SIZE = 8;
 
     /**
      * Analyzes a given source code file.
@@ -33,7 +33,7 @@ public class BwLogic {
             String line;
             while ((line = br.readLine()) != null) {
                 currentBlockLineCount++;
-                if (currentBlockLineCount <= CUT_NUM) {
+                if (currentBlockLineCount <= BLOCK_SIZE) {
                     //codeBlock.append(line).append(System.getProperty("line.separator"));
                     codeBlock.append(line).append('\n');
                 } else {

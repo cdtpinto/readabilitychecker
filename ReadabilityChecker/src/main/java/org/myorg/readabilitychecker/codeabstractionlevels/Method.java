@@ -1,6 +1,5 @@
 package org.myorg.readabilitychecker.codeabstractionlevels;
 
-import org.myorg.readabilitychecker.formulas.objects.PHD;
 import org.myorg.readabilitychecker.formulas.objects.CommentsRatio;
 import com.github.javaparser.ast.body.MethodDeclaration;
 
@@ -13,20 +12,18 @@ public class Method {
 
     private MethodDeclaration methodDeclaration;
     private CommentsRatio commentsRatio;
-    private PHD phd;                                  // PHD will only evaluate method level readability
 
     public Method() {
-        this(null, null, null);
+        this(null, null);
     }
 
     public Method(MethodDeclaration methodDeclaration) {
-        this(methodDeclaration, null, null);
+        this(methodDeclaration, null);
     }
 
-    public Method(MethodDeclaration methodDeclaration, CommentsRatio commentsRatio, PHD phd) {
+    public Method(MethodDeclaration methodDeclaration, CommentsRatio commentsRatio) {
         setMethodDeclaration(methodDeclaration);
         setCommentsRatio(commentsRatio);
-        setPhd(phd);
     }
 
     public MethodDeclaration getMethodDeclaration() {
@@ -37,20 +34,12 @@ public class Method {
         return commentsRatio;
     }
 
-    public PHD getPhd() {
-        return phd;
-    }
-
     public void setMethodDeclaration(MethodDeclaration methodDeclaration) {
         this.methodDeclaration = methodDeclaration;
     }
 
     public void setCommentsRatio(CommentsRatio commentsRatio) {
         this.commentsRatio = commentsRatio;
-    }
-
-    public void setPhd(PHD phd) {
-        this.phd = phd;
     }
 
 }
