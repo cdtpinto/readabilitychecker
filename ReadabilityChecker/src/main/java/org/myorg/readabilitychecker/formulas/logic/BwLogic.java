@@ -15,6 +15,8 @@ import org.myorg.readabilitychecker.formulas.objects.BW;
  */
 public class BwLogic {
 
+    private static final int CUT_NUM = 8;
+
     /**
      * Analyzes a given source code file.
      *
@@ -31,14 +33,21 @@ public class BwLogic {
             String line;
             while ((line = br.readLine()) != null) {
                 currentBlockLineCount++;
-                if (currentBlockLineCount <= 8) {
+                if (currentBlockLineCount <= CUT_NUM) {
+                    //codeBlock.append(line).append(System.getProperty("line.separator"));
                     codeBlock.append(line).append('\n');
                 } else {
                     valueSum += raykernel.apps.readability.eval.Main.getReadability(codeBlock.toString());
 
+                    System.out.println("bloco");
+                    System.out.println(codeBlock.toString());
+                    System.out.println("value -> " + raykernel.apps.readability.eval.Main.getReadability(codeBlock.toString()));
+                    System.out.println("");
+
                     totalBlockCount++;
                     currentBlockLineCount = 1;
                     codeBlock.setLength(0);
+                    //codeBlock.append(line).append(System.getProperty("line.separator"));
                     codeBlock.append(line).append('\n');
                 }
             }
@@ -46,6 +55,11 @@ public class BwLogic {
             // Calculate the final part of the code
             if (codeBlock.length() != 0) {
                 valueSum += raykernel.apps.readability.eval.Main.getReadability(codeBlock.toString());
+
+                System.out.println("bloco");
+                System.out.println(codeBlock.toString());
+                System.out.println("value -> " + raykernel.apps.readability.eval.Main.getReadability(codeBlock.toString()));
+                System.out.println("");
 
                 totalBlockCount++;
             }

@@ -659,7 +659,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
                 + version
                 + "</b><br />"
                 + "<br />"
-                + "This is a plugin for the NetBeans IDE that estimates Java code readability using three different software readability formulas.<br />"
+                + "This is a plugin for the NetBeans IDE that estimates Java code readability using three different software readability formulas and metrics.<br />"
                 + "<br />"
                 + "<b>Comments Ratio</b><br />"
                 + "<br />"
