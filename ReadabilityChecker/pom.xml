@@ -5,6 +5,16 @@
     <artifactId>ReadabilityChecker</artifactId>
     <version>1.1</version>
     <packaging>nbm</packaging>
+    
+    <developers>
+        <developer>
+            <name>Cláudio Pinto</name>
+            <email>1120301@isep.ipp.pt</email>
+            <organization />
+            <organizationUrl>https://github.com/cdtpinto</organizationUrl>
+        </developer>
+    </developers>
+    
     <profiles>
         <profile>
             <id>java8-doclint-disabled</id>
@@ -53,6 +63,27 @@
                     <skipTests>true</skipTests> <!-- Change value to true to skip tests on build -->
                 </configuration>
             </plugin>
+            
+            <!---->
+            <plugin>
+                <groupId>org.myorg</groupId>
+                <artifactId>ReadabilityChecker</artifactId>
+                <version>1.1</version>
+                <!--<extensions>true</extensions>-->
+                <configuration>
+                    <!-- keep it for backwards compatibility to previous versions-->
+                    <codeNameBase>org.claudiopinto.netbeans.myplugin</codeNameBase>
+                    <author>ClaudioPinto (1120301@isep.ipp.pt)</author>
+                    <homePageUrl>https://github.com/cdtpinto</homePageUrl>
+                    <!-- keystore: only required, if you don't want to pass the path to the keystore file via cmdline-->
+                    <keystore>nbproject/private/keystore</keystore>
+                    <keystorealias>cdtpinto</keystorealias>
+                    <licenseName>GNU 3.0</licenseName>
+                    <licenseFile>license.txt</licenseFile>
+                </configuration>
+            </plugin>
+            <!---->
+            
         </plugins>
     </build>
     <repositories>
@@ -204,5 +235,15 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <name>Readability Checker</name>
-    <description>NetBeans plugin that uses trhee different readability formulas to estimate software readability.</description>
+    <description>NetBeans plugin that uses three different readability formulas and metrics to estimate software readability.</description>
+    
+    <licenses>
+        <license>
+            <name>GNU General Public License Version 3.0</name>
+            <url>https://choosealicense.com/licenses/gpl-3.0/</url>
+            <distribution>repo</distribution>
+            <comments>The GNU General Public License is a free, copyleft license for software and other kinds of works.</comments>
+        </license>
+    </licenses>
+    
 </project>

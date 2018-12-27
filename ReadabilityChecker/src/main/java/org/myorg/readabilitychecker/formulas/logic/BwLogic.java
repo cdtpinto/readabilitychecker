@@ -39,11 +39,10 @@ public class BwLogic {
                 } else {
                     valueSum += raykernel.apps.readability.eval.Main.getReadability(codeBlock.toString());
 
-                    System.out.println("bloco");
-                    System.out.println(codeBlock.toString());
-                    System.out.println("value -> " + raykernel.apps.readability.eval.Main.getReadability(codeBlock.toString()));
-                    System.out.println("");
-
+//                    System.out.println("bloco");
+//                    System.out.println(codeBlock.toString());
+//                    System.out.println("value -> " + raykernel.apps.readability.eval.Main.getReadability(codeBlock.toString()));
+//                    System.out.println("");
                     totalBlockCount++;
                     currentBlockLineCount = 1;
                     codeBlock.setLength(0);
@@ -56,11 +55,10 @@ public class BwLogic {
             if (codeBlock.length() != 0) {
                 valueSum += raykernel.apps.readability.eval.Main.getReadability(codeBlock.toString());
 
-                System.out.println("bloco");
-                System.out.println(codeBlock.toString());
-                System.out.println("value -> " + raykernel.apps.readability.eval.Main.getReadability(codeBlock.toString()));
-                System.out.println("");
-
+//                System.out.println("bloco");
+//                System.out.println(codeBlock.toString());
+//                System.out.println("value -> " + raykernel.apps.readability.eval.Main.getReadability(codeBlock.toString()));
+//                System.out.println("");
                 totalBlockCount++;
             }
         }
@@ -106,10 +104,12 @@ public class BwLogic {
 
         for (SourceCodeFile file : javaFiles) {
             if (file.getFile() != null) {
-                detailedResults.append("File: " + file.getFile().getName());
+                detailedResults.append("File: ");
+                detailedResults.append(file.getFile().getName());
                 detailedResults.append(System.lineSeparator());
 
-                detailedResults.append("Readability value: " + String.valueOf(new DecimalFormat("#0.00").format(file.getBw().getValue())));
+                detailedResults.append("Readability value: ");
+                detailedResults.append(String.valueOf(new DecimalFormat("#0.00").format(file.getBw().getValue())));
                 detailedResults.append(System.lineSeparator());
                 detailedResults.append(System.lineSeparator());
             }

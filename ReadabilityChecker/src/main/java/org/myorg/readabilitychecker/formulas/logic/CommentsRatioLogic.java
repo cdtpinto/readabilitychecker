@@ -195,11 +195,14 @@ public class CommentsRatioLogic {
             for (SourceCodeFile file : javaFiles) {
                 if (file.getFile() != null) {
                     /* Handle files */
-                    detailedResults.append("File: " + file.getFile().getName());
+                    detailedResults.append("File: ");
+                    detailedResults.append(file.getFile().getName());
                     detailedResults.append(System.lineSeparator());
-                    detailedResults.append("LOC: " + file.getCommentsRatio().getLinesOfCode());
+                    detailedResults.append("LOC: ");
+                    detailedResults.append(file.getCommentsRatio().getLinesOfCode());
                     detailedResults.append(System.lineSeparator());
-                    detailedResults.append("LOM: " + file.getCommentsRatio().getLinesWithComments());
+                    detailedResults.append("LOM: ");
+                    detailedResults.append(file.getCommentsRatio().getLinesWithComments());
                     detailedResults.append(System.lineSeparator());
 
                     if (file.getCommentsRatio().getLinesOfCode() == 0) {
@@ -207,7 +210,8 @@ public class CommentsRatioLogic {
                     } else if (file.getCommentsRatio().getLinesWithComments() == 0) {
                         detailedResults.append("Readability value not calculated. File has no comments.");
                     } else {
-                        detailedResults.append("Readability value: " + String.valueOf(new DecimalFormat("#0.00").format(file.getCommentsRatio().getValue())));
+                        detailedResults.append("Readability value: ");
+                        detailedResults.append(String.valueOf(new DecimalFormat("#0.00").format(file.getCommentsRatio().getValue())));
                     }
                     detailedResults.append(System.lineSeparator());
                     detailedResults.append(System.lineSeparator());
@@ -215,18 +219,22 @@ public class CommentsRatioLogic {
 
                 /* Handle the methods in file */
                 for (Method m : file.getMethods()) {
-                    detailedResults.append("\t" + m.getMethodDeclaration().getDeclarationAsString(true, false, true));
+                    detailedResults.append("\t");
+                    detailedResults.append(m.getMethodDeclaration().getDeclarationAsString(true, false, true));
                     detailedResults.append(System.lineSeparator());
                     if (m.getCommentsRatio() != null) {
-                        detailedResults.append("\tLOC: " + String.valueOf(m.getCommentsRatio().getLinesOfCode()));
+                        detailedResults.append("\tLOC: ");
+                        detailedResults.append(String.valueOf(m.getCommentsRatio().getLinesOfCode()));
                         detailedResults.append(System.lineSeparator());
-                        detailedResults.append("\tLOM: " + String.valueOf(m.getCommentsRatio().getLinesWithComments()));
+                        detailedResults.append("\tLOM: ");
+                        detailedResults.append(String.valueOf(m.getCommentsRatio().getLinesWithComments()));
                         detailedResults.append(System.lineSeparator());
 
                         if (m.getCommentsRatio().getLinesWithComments() == 0) {
                             detailedResults.append("\tReadability value not calculated. Method has no comments.");
                         } else {
-                            detailedResults.append("\tReadability value: " + String.valueOf(new DecimalFormat("#0.00").format(m.getCommentsRatio().getValue())));
+                            detailedResults.append("\tReadability value: ");
+                            detailedResults.append(String.valueOf(new DecimalFormat("#0.00").format(m.getCommentsRatio().getValue())));
                         }
 
                     } else {
@@ -235,7 +243,6 @@ public class CommentsRatioLogic {
                     detailedResults.append(System.lineSeparator());
                     detailedResults.append(System.lineSeparator());
                 }
-                //}
             }
         } catch (NullPointerException ex) {
             System.out.println(ex);

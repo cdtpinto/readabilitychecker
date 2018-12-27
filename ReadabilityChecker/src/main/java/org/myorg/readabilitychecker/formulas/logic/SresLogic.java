@@ -143,11 +143,14 @@ public class SresLogic {
         try {
             for (SourceCodeFile file : javaFiles) {
                 if (file.getFile() != null) {
-                    detailedResults.append("File: " + file.getFile().getName());
+                    detailedResults.append("File: ");
+                    detailedResults.append(file.getFile().getName());
                     detailedResults.append(System.lineSeparator());
-                    detailedResults.append("ASL: " + String.valueOf(new DecimalFormat("#0.00").format(file.getSres().getAsl())));
+                    detailedResults.append("ASL: ");
+                    detailedResults.append(String.valueOf(new DecimalFormat("#0.00").format(file.getSres().getAsl())));
                     detailedResults.append(System.lineSeparator());
-                    detailedResults.append("AWL: " + String.valueOf(new DecimalFormat("#0.00").format(file.getSres().getAwl())));
+                    detailedResults.append("AWL: ");
+                    detailedResults.append(String.valueOf(new DecimalFormat("#0.00").format(file.getSres().getAwl())));
                     detailedResults.append(System.lineSeparator());
 
                     if (file.getSres().getAsl() == 0.0 && file.getSres().getAwl() == 0.0) {
@@ -157,7 +160,8 @@ public class SresLogic {
                     } else if (file.getSres().getAwl() == 0.0) {
                         detailedResults.append("Readability value not calculated. File has no Java words.");
                     } else {
-                        detailedResults.append("Readability value: " + String.valueOf(new DecimalFormat("#0.00").format(file.getSres().getValue())));
+                        detailedResults.append("Readability value: ");
+                        detailedResults.append(String.valueOf(new DecimalFormat("#0.00").format(file.getSres().getValue())));
                     }
                     detailedResults.append(System.lineSeparator());
                     detailedResults.append(System.lineSeparator());
