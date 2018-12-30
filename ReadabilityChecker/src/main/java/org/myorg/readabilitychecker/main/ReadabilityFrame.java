@@ -10,13 +10,11 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
-import org.myorg.readabilitychecker.codeabstractionlevels.Method;
 import org.myorg.readabilitychecker.codeabstractionlevels.SourceCodeFile;
 import org.myorg.readabilitychecker.formulas.logic.CommentsRatioLogic;
 import org.myorg.readabilitychecker.formulas.logic.SresLogic;
@@ -482,6 +480,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
                         CommentsRatio crClass = crl.analyzeFile(cu);
                         file.setCommentsRatio(crClass);
 
+                        /*
                         // Handle method level comments
                         ArrayList<Method> fileMethods = file.getMethods();
                         if (fileMethods == null || fileMethods.isEmpty()) {
@@ -489,6 +488,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
                         }
                         crl.analyzeMethods(fileMethods);
                         file.setMethods(fileMethods);
+                         */
                     }
 
                 } catch (IOException ex) {
@@ -663,38 +663,20 @@ public class ReadabilityFrame extends javax.swing.JFrame {
                 + "<br />"
                 + "<b>Comments Ratio</b><br />"
                 + "<br />"
-                + "CR = LOC / LOM<br />"
-                + "<br />"
-                + "<i>where:</i><br />"
-                + "<i>LOC is the number of lines of code</i><br />"
-                + "<i>LOM is the number of lines with comments</i><br />"
-                + "<br />"
                 + "Readability values should be critically considered as good or bad.<br />"
-                + "<br />"
                 + "Fully supports Java SE 11.<br />"
                 + "<br />"
                 + "<b>SRES</b><br />"
                 + "<br />"
-                + "SRES = ASL - 0.1 * AWL<br />"
-                + "<br />"
-                + "<i>where:</i><br />"
-                + "<i>ASL is the average sentence length</i><br />"
-                + "<i>AWL is the average word length</i><br />"
-                + "<br />"
                 + "Threshold readability value is 6. Values closer to 0 mean more readable code.<br />"
-                + "<br />"
                 + "Fully supports Java SE 5.<br />"
                 + "<br />"
                 + "<b>B&W</b><br />"
                 + "<br />"
-                + "This is a readability metric that considers some characteristics of the code to calculate it's readability.<br />"
-                + "<br />"
                 + "Readability values range from 0 to 1. The closer it gets to 1, the more readable the code is.<br />"
-                + "<br />"
                 + "Fully supports Java SE 11.<br />"
                 + "<br />"
-                + "<br />"
-                + "For additional information, please refer to <a href=\"https://cdtpinto.github.io/projects/readabilitychecker\">https://cdtpinto.github.io/projects/readabilitychecker</a>"
+                + "For additional information, and further details on the formulas and metrics, please refer to <a href=\"https://cdtpinto.github.io/pages/readabilitychecker\">https://cdtpinto.github.io/pages/readabilitychecker</a>"
                 + "</html>";
 
         JEditorPane jEPHelp = new JEditorPane();
@@ -710,7 +692,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
             @Override
             public void hyperlinkUpdate(HyperlinkEvent hle) {
                 if (HyperlinkEvent.EventType.ACTIVATED.equals(hle.getEventType())) {
-                    System.out.println(hle.getURL());
+                    //System.out.println(hle.getURL());
                     Desktop desktop = Desktop.getDesktop();
                     try {
                         desktop.browse(hle.getURL().toURI());
@@ -724,7 +706,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
         JScrollPane scrollPane = new JScrollPane(jEPHelp);
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setPreferredSize(new Dimension(535, 500));
+        scrollPane.setPreferredSize(new Dimension(535, 375));
 
         JOptionPane.showMessageDialog(null, scrollPane, "Help", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_jBtnHelpActionPerformed
