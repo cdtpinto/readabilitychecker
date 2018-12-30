@@ -1,4 +1,4 @@
-package org.myorg.readabilitychecker.main;
+package org.cdtpinto.readabilitychecker.main;
 
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ParseProblemException;
@@ -15,19 +15,19 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
-import org.myorg.readabilitychecker.codeabstractionlevels.SourceCodeFile;
-import org.myorg.readabilitychecker.formulas.logic.CommentsRatioLogic;
-import org.myorg.readabilitychecker.formulas.logic.SresLogic;
-import org.myorg.readabilitychecker.formulas.objects.CommentsRatio;
-import org.myorg.readabilitychecker.logic.ReadabilityFrameLogic;
-import org.myorg.readabilitychecker.logic.SourceCodeFileLogic;
+import org.cdtpinto.readabilitychecker.codeabstractionlevels.SourceCodeFile;
+import org.cdtpinto.readabilitychecker.formulas.logic.CommentsRatioLogic;
+import org.cdtpinto.readabilitychecker.formulas.logic.SresLogic;
+import org.cdtpinto.readabilitychecker.formulas.objects.CommentsRatio;
+import org.cdtpinto.readabilitychecker.logic.ReadabilityFrameLogic;
+import org.cdtpinto.readabilitychecker.logic.SourceCodeFileLogic;
 import org.openide.util.Exceptions;
 import java.awt.Desktop;
 import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
-import org.myorg.readabilitychecker.formulas.logic.BwLogic;
+import org.cdtpinto.readabilitychecker.formulas.logic.BwLogic;
 
 /**
  * Main window of the application.
@@ -37,7 +37,7 @@ import org.myorg.readabilitychecker.formulas.logic.BwLogic;
 public class ReadabilityFrame extends javax.swing.JFrame {
 
     //private static final Logger LOGGER = Logger.getLogger(ReadabilityFrame.class.getName());
-    private final double version = 1.1; // current Readability Checker version
+    private final String version = "1.1.0"; // current Readability Checker version
     private List<SourceCodeFile> javaFiles = null;
     private double crProjectReadabilityValue;
     private double sresProjectReadabilityValue;

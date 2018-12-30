@@ -1,7 +1,7 @@
-package org.myorg.readabilitychecker.logic;
+package org.cdtpinto.readabilitychecker.logic;
 
-import org.myorg.readabilitychecker.codeabstractionlevels.SourceCodeFile;
-import org.myorg.readabilitychecker.codeabstractionlevels.Method;
+import org.cdtpinto.readabilitychecker.codeabstractionlevels.SourceCodeFile;
+import org.cdtpinto.readabilitychecker.codeabstractionlevels.Method;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import java.net.URI;

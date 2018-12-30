@@ -1,10 +1,10 @@
-package org.myorg.readabilitychecker.codeabstractionlevels;
+package org.cdtpinto.readabilitychecker.codeabstractionlevels;
 
-import org.myorg.readabilitychecker.formulas.objects.SRES;
-import org.myorg.readabilitychecker.formulas.objects.CommentsRatio;
+import org.cdtpinto.readabilitychecker.formulas.objects.SRES;
+import org.cdtpinto.readabilitychecker.formulas.objects.CommentsRatio;
 import java.io.File;
 import java.util.ArrayList;
-import org.myorg.readabilitychecker.formulas.objects.BW;
+import org.cdtpinto.readabilitychecker.formulas.objects.BW;
 
 /**
  * A source code file (.java file).

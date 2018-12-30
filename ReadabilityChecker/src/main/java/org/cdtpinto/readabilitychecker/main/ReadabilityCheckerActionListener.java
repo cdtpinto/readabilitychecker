@@ -1,4 +1,4 @@
-package org.myorg.readabilitychecker.main;
+package org.cdtpinto.readabilitychecker.main;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,10 +9,10 @@ import org.openide.util.NbBundle.Messages;
 
 @ActionID(
         category = "File",
-        id = "org.myorg.readabilitychecker.ReadabilityCheckerActionListener"
+        id = "org.cdtpinto.readabilitychecker.ReadabilityCheckerActionListener"
 )
 @ActionRegistration(
-        iconBase = "org/myorg/readabilitychecker/readabilitycheckericon.png",
+        iconBase = "org/cdtpinto/readabilitychecker/readabilitycheckericon.png",
         displayName = "#CTL_ReadabilityCheckerActionListener"
 )
 @ActionReference(path = "Toolbars/File", position = 0)

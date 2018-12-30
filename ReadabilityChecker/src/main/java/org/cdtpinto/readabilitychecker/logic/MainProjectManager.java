@@ -10,7 +10,7 @@
  * Code is Sun Microsystems, Inc. Portions Copyright 1997-2004 Sun
  * Microsystems, Inc. All Rights Reserved.
  */
-package org.myorg.readabilitychecker.logic;
+package org.cdtpinto.readabilitychecker.logic;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

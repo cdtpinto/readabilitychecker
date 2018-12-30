@@ -1,12 +1,12 @@
-package org.myorg.readabilitychecker.formulas.logic;
+package org.cdtpinto.readabilitychecker.formulas.logic;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.List;
-import org.myorg.readabilitychecker.codeabstractionlevels.SourceCodeFile;
-import org.myorg.readabilitychecker.formulas.objects.BW;
+import org.cdtpinto.readabilitychecker.codeabstractionlevels.SourceCodeFile;
+import org.cdtpinto.readabilitychecker.formulas.objects.BW;
 
 /**
  * Contains the logical methods for the B&W metric.

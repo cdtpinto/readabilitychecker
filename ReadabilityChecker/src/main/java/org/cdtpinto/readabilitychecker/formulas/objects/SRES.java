@@ -1,4 +1,4 @@
-package org.myorg.readabilitychecker.formulas.objects;
+package org.cdtpinto.readabilitychecker.formulas.objects;
 
 /**
  * SRES formula.

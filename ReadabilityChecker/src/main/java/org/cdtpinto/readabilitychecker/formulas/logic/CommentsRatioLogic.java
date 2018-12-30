@@ -1,4 +1,4 @@
-package org.myorg.readabilitychecker.formulas.logic;
+package org.cdtpinto.readabilitychecker.formulas.logic;
 
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.comments.Comment;
@@ -6,9 +6,9 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import org.myorg.readabilitychecker.codeabstractionlevels.Method;
-import org.myorg.readabilitychecker.codeabstractionlevels.SourceCodeFile;
-import org.myorg.readabilitychecker.formulas.objects.CommentsRatio;
+import org.cdtpinto.readabilitychecker.codeabstractionlevels.Method;
+import org.cdtpinto.readabilitychecker.codeabstractionlevels.SourceCodeFile;
+import org.cdtpinto.readabilitychecker.formulas.objects.CommentsRatio;
 
 /**
  * Contains the logical methods for the Comments Ratio formula.

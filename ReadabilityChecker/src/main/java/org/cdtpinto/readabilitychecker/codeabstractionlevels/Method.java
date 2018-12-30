@@ -1,6 +1,6 @@
-package org.myorg.readabilitychecker.codeabstractionlevels;
+package org.cdtpinto.readabilitychecker.codeabstractionlevels;
 
-import org.myorg.readabilitychecker.formulas.objects.CommentsRatio;
+import org.cdtpinto.readabilitychecker.formulas.objects.CommentsRatio;
 import com.github.javaparser.ast.body.MethodDeclaration;
 
 /**

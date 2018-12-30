@@ -1,4 +1,4 @@
-package org.myorg.readabilitychecker.formulas.logic;
+package org.cdtpinto.readabilitychecker.formulas.logic;
 
 import edu.cs.umu.sres.ParserInterface;
 import java.io.IOException;
@@ -6,9 +6,9 @@ import java.io.PrintStream;
 import java.text.DecimalFormat;
 import java.util.List;
 import org.openide.util.Exceptions;
-import org.myorg.readabilitychecker.codeabstractionlevels.SourceCodeFile;
-import org.myorg.readabilitychecker.formulas.objects.SRES;
-import org.myorg.readabilitychecker.logic.Utilities;
+import org.cdtpinto.readabilitychecker.codeabstractionlevels.SourceCodeFile;
+import org.cdtpinto.readabilitychecker.formulas.objects.SRES;
+import org.cdtpinto.readabilitychecker.logic.Utilities;
 
 /**
  * Contains the logical methods for the SRES formula.

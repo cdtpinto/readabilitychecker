@@ -1,4 +1,4 @@
-package org.myorg.readabilitychecker.logic;
+package org.cdtpinto.readabilitychecker.logic;
 
 import java.io.OutputStream;
 import java.io.PrintStream;
