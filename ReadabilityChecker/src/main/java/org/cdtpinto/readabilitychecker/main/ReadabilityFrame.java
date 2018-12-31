@@ -532,31 +532,36 @@ public class ReadabilityFrame extends javax.swing.JFrame {
 
             /* Changes the text fields values and tooltip texts */
             if (!disableCommentsRatio.isSelected()) {
-                if (currentlySelectedFile == null || currentlySelectedFile.getCommentsRatio().getValue() == 0.0) {
+                if (currentlySelectedFile == null || currentlySelectedFile.getCommentsRatio().getValue() == 0.00) {
                     jTFCommentsRatio.setText("n/a");
                     jTFCommentsRatio.setToolTipText(null);
                 } else {
                     jTFCommentsRatio.setText(String.valueOf(new DecimalFormat("#0.00").format(currentlySelectedFile.getCommentsRatio().getValue())));
-                    jTFCommentsRatio.setToolTipText(currentlySelectedFile.getFile().getName() + " Readability Value");
+                    jTFCommentsRatio.setToolTipText(currentlySelectedFile.getFile().getName() + " readability value");
                 }
 
                 commentsRatioDetailedResults = CommentsRatioLogic.getDetailedResults(javaFiles, SourceCodeFileLogic.getOpenedProjectName(), crProjectReadability);
             }
 
             if (!disableSres.isSelected()) {
-                if (currentlySelectedFile == null || sresProjectReadability == 0.0) {
+                if (currentlySelectedFile == null || sresProjectReadability == 0.00) {
                     jTFSres.setText("n/a");
                     jTFSres.setToolTipText(null);
                 } else {
-                    jTFSres.setText(String.valueOf(String.valueOf(new DecimalFormat("#0.00").format(currentlySelectedFile.getSres().getValue()))));
-                    jTFSres.setToolTipText(currentlySelectedFile.getFile().getName() + " Readability Value");
+                    if (currentlySelectedFile.getSres().getValue() == 0.00) {
+                        jTFSres.setText("n/a");
+                        jTFSres.setToolTipText("Readability value not calculated. Make sure " + currentlySelectedFile.getFile().getName() + " doesn't have any feature introduced after Java SE 5.");
+                    } else {
+                        jTFSres.setText(String.valueOf(String.valueOf(new DecimalFormat("#0.00").format(currentlySelectedFile.getSres().getValue()))));
+                        jTFSres.setToolTipText(currentlySelectedFile.getFile().getName() + " readability value");
+                    }
                 }
 
                 sresDetailedResults = SresLogic.getDetailedResults(javaFiles, SourceCodeFileLogic.getOpenedProjectName(), sresProjectReadability);
             }
 
             if (!disableBw.isSelected()) {
-                if (currentlySelectedFile == null || bwProjectReadability == 0.0) {
+                if (currentlySelectedFile == null || bwProjectReadability == 0.00) {
                     jTFBw.setText("n/a");
                     jTFBw.setToolTipText(null);
                 } else {
