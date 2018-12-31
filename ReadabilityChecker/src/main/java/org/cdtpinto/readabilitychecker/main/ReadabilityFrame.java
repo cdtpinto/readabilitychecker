@@ -39,9 +39,9 @@ public class ReadabilityFrame extends javax.swing.JFrame {
     //private static final Logger LOGGER = Logger.getLogger(ReadabilityFrame.class.getName());
     private final String version = "1.1.0"; // current Readability Checker version
     private List<SourceCodeFile> javaFiles = null;
-    private double crProjectReadabilityValue;
-    private double sresProjectReadabilityValue;
-    private double bwProjectReadabilityValue;
+    private double crProjectReadability;
+    private double sresProjectReadability;
+    private double bwProjectReadability;
     private String commentsRatioDetailedResults;
     private String sresDetailedResults;
     private String bwDetailedResults;
@@ -446,9 +446,9 @@ public class ReadabilityFrame extends javax.swing.JFrame {
      * Triggers the readability analysis.
      */
     private void jBtnCheckReadabilityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCheckReadabilityActionPerformed
-        crProjectReadabilityValue = 0;
-        sresProjectReadabilityValue = 0;
-        bwProjectReadabilityValue = 0;
+        crProjectReadability = 0;
+        sresProjectReadability = 0;
+        bwProjectReadability = 0;
         SourceCodeFileLogic scfl = new SourceCodeFileLogic();
 
         /* Get all Java files from the opened project */
@@ -496,7 +496,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
                 }
             }
 
-            crProjectReadabilityValue = crl.getReadabilityOfProject(javaFiles);
+            crProjectReadability = crl.getReadabilityOfProject(javaFiles);
         }
 
         if (!disableSres.isSelected()) {
@@ -505,7 +505,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
             for (SourceCodeFile file : javaFiles) {
                 sl.analyzeFile(file);
             }
-            sresProjectReadabilityValue = sl.getReadabilityOfProject(javaFiles);
+            sresProjectReadability = sl.getReadabilityOfProject(javaFiles);
         }
 
         if (!disableBw.isSelected()) {
@@ -518,45 +518,45 @@ public class ReadabilityFrame extends javax.swing.JFrame {
                     Exceptions.printStackTrace(ex);
                 }
             }
-            bwProjectReadabilityValue = bwl.getReadabilityOfProject(javaFiles);
+            bwProjectReadability = bwl.getReadabilityOfProject(javaFiles);
         }
 
         if (javaFiles != null && !javaFiles.isEmpty()) {    // There is an opened project
             /* Changes the text fields values and tooltip texts */
             if (!disableCommentsRatio.isSelected()) {
-                if (crProjectReadabilityValue == 0.0) {
+                if (crProjectReadability == 0.0) {
                     jTFCommentsRatio.setText("n/a");
                     jTFCommentsRatio.setToolTipText(null);
                 } else {
-                    jTFCommentsRatio.setText(String.valueOf(new DecimalFormat("#0.00").format(crProjectReadabilityValue)));
+                    jTFCommentsRatio.setText(String.valueOf(new DecimalFormat("#0.00").format(crProjectReadability)));
                     jTFCommentsRatio.setToolTipText("Project Readability");
                 }
 
-                commentsRatioDetailedResults = CommentsRatioLogic.getDetailedResults(javaFiles);
+                commentsRatioDetailedResults = CommentsRatioLogic.getDetailedResults(javaFiles, SourceCodeFileLogic.getOpenedProjectName(), crProjectReadability);
             }
 
             if (!disableSres.isSelected()) {
-                if (sresProjectReadabilityValue == 0.0) {
+                if (sresProjectReadability == 0.0) {
                     jTFSres.setText("n/a");
                     jTFSres.setToolTipText(null);
                 } else {
-                    jTFSres.setText(String.valueOf(String.valueOf(new DecimalFormat("#0.00").format(sresProjectReadabilityValue))));
+                    jTFSres.setText(String.valueOf(String.valueOf(new DecimalFormat("#0.00").format(sresProjectReadability))));
                     jTFSres.setToolTipText("Project Readability");
                 }
 
-                sresDetailedResults = SresLogic.getDetailedResults(javaFiles);
+                sresDetailedResults = SresLogic.getDetailedResults(javaFiles, SourceCodeFileLogic.getOpenedProjectName(), sresProjectReadability);
             }
 
             if (!disableBw.isSelected()) {
-                if (bwProjectReadabilityValue == 0.0) {
+                if (bwProjectReadability == 0.0) {
                     jTFBw.setText("n/a");
                     jTFBw.setToolTipText(null);
                 } else {
-                    jTFBw.setText(String.valueOf(String.valueOf(new DecimalFormat("#0.00").format(bwProjectReadabilityValue))));
+                    jTFBw.setText(String.valueOf(String.valueOf(new DecimalFormat("#0.00").format(bwProjectReadability))));
                     jTFBw.setToolTipText("Project Readability");
                 }
 
-                bwDetailedResults = BwLogic.getDetailedResults(javaFiles);
+                bwDetailedResults = BwLogic.getDetailedResults(javaFiles, SourceCodeFileLogic.getOpenedProjectName(), bwProjectReadability);
             }
         } else {
             /* Clear filled fields */
@@ -583,7 +583,8 @@ public class ReadabilityFrame extends javax.swing.JFrame {
             output.append("*** Readability Checker Results ***");
             output.append(System.lineSeparator());
             output.append(System.lineSeparator());
-            output.append("Project name: " + SourceCodeFileLogic.getOpenedProjectName());
+            output.append("Project name: ");
+            output.append(SourceCodeFileLogic.getOpenedProjectName());
             output.append(System.lineSeparator());
             output.append(System.lineSeparator());
 
@@ -591,7 +592,8 @@ public class ReadabilityFrame extends javax.swing.JFrame {
                 output.append("# Comments Ratio #");
                 output.append(System.lineSeparator());
                 output.append(System.lineSeparator());
-                output.append("Project readability: " + jTFCommentsRatio.getText());
+                output.append("Project readability: ");
+                output.append(jTFCommentsRatio.getText());
                 output.append(System.lineSeparator());
                 output.append(System.lineSeparator());
                 output.append(commentsRatioDetailedResults);
@@ -603,7 +605,8 @@ public class ReadabilityFrame extends javax.swing.JFrame {
                 output.append("# SRES #");
                 output.append(System.lineSeparator());
                 output.append(System.lineSeparator());
-                output.append("Project readability: " + jTFSres.getText());
+                output.append("Project readability: ");
+                output.append(jTFSres.getText());
                 output.append(System.lineSeparator());
                 output.append(System.lineSeparator());
                 output.append(sresDetailedResults);
@@ -615,7 +618,8 @@ public class ReadabilityFrame extends javax.swing.JFrame {
                 output.append("# B&W #");
                 output.append(System.lineSeparator());
                 output.append(System.lineSeparator());
-                output.append("Project readability: " + jTFBw.getText());
+                output.append("Project readability: ");
+                output.append(jTFBw.getText());
                 output.append(System.lineSeparator());
                 output.append(System.lineSeparator());
                 output.append(bwDetailedResults);

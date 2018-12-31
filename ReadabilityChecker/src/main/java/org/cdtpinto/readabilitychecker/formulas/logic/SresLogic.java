@@ -137,8 +137,16 @@ public class SresLogic {
      * @return a String with the detailed information for every method tested by
      * SRES.
      */
-    public static String getDetailedResults(List<SourceCodeFile> javaFiles) {
+    public static String getDetailedResults(List<SourceCodeFile> javaFiles, String project, double projectReadability) {
         StringBuilder detailedResults = new StringBuilder();
+
+        detailedResults.append("Project: ");
+        detailedResults.append(project);
+        detailedResults.append(System.lineSeparator());
+        detailedResults.append("Readability value: ");
+        detailedResults.append(String.valueOf(String.valueOf(new DecimalFormat("#0.00").format(projectReadability))));
+        detailedResults.append(System.lineSeparator());
+        detailedResults.append(System.lineSeparator());
 
         try {
             for (SourceCodeFile file : javaFiles) {

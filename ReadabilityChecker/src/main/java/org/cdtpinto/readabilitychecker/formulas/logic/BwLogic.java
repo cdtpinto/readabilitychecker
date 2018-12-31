@@ -39,10 +39,10 @@ public class BwLogic {
                 } else {
                     valueSum += raykernel.apps.readability.eval.Main.getReadability(codeBlock.toString());
 
-                    System.out.println("bloco");
-                    System.out.println(codeBlock.toString());
-                    System.out.println("value -> " + raykernel.apps.readability.eval.Main.getReadability(codeBlock.toString()));
-                    System.out.println("");
+//                    System.out.println("bloco");
+//                    System.out.println(codeBlock.toString());
+//                    System.out.println("value -> " + raykernel.apps.readability.eval.Main.getReadability(codeBlock.toString()));
+//                    System.out.println("");
                     totalBlockCount++;
                     currentBlockLineCount = 1;
                     codeBlock.setLength(0);
@@ -55,10 +55,10 @@ public class BwLogic {
             if (codeBlock.length() != 0) {
                 valueSum += raykernel.apps.readability.eval.Main.getReadability(codeBlock.toString());
 
-                System.out.println("bloco");
-                System.out.println(codeBlock.toString());
-                System.out.println("value -> " + raykernel.apps.readability.eval.Main.getReadability(codeBlock.toString()));
-                System.out.println("");
+//                System.out.println("bloco");
+//                System.out.println(codeBlock.toString());
+//                System.out.println("value -> " + raykernel.apps.readability.eval.Main.getReadability(codeBlock.toString()));
+//                System.out.println("");
                 totalBlockCount++;
             }
         }
@@ -99,8 +99,16 @@ public class BwLogic {
      * @return a String with the detailed information for every method tested by
      * B&W.
      */
-    public static String getDetailedResults(List<SourceCodeFile> javaFiles) {
+    public static String getDetailedResults(List<SourceCodeFile> javaFiles, String project, double projectReadability) {
         StringBuilder detailedResults = new StringBuilder();
+
+        detailedResults.append("Project: ");
+        detailedResults.append(project);
+        detailedResults.append(System.lineSeparator());
+        detailedResults.append("Readability value: ");
+        detailedResults.append(String.valueOf(String.valueOf(new DecimalFormat("#0.00").format(projectReadability))));
+        detailedResults.append(System.lineSeparator());
+        detailedResults.append(System.lineSeparator());
 
         for (SourceCodeFile file : javaFiles) {
             if (file.getFile() != null) {
