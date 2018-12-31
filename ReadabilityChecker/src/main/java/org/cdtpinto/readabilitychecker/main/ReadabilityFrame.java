@@ -68,6 +68,8 @@ public class ReadabilityFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         jPanelCommentsRatio = new javax.swing.JPanel();
         jLblCommentsRatio = new javax.swing.JLabel();
         jTFCommentsRatio = new javax.swing.JTextField();
@@ -87,6 +89,10 @@ public class ReadabilityFrame extends javax.swing.JFrame {
         jBtnCheckReadability = new javax.swing.JButton();
         jBtnExportResults = new javax.swing.JButton();
         jBtnHelp = new javax.swing.JButton();
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.title")); // NOI18N
@@ -522,38 +528,40 @@ public class ReadabilityFrame extends javax.swing.JFrame {
         }
 
         if (javaFiles != null && !javaFiles.isEmpty()) {    // There is an opened project
+            SourceCodeFile currentlySelectedFile = SourceCodeFileLogic.getCurrentlySelectedFileFromFilesList(SourceCodeFileLogic.getCurrentlyOpenedFile().getFile().getAbsolutePath(), javaFiles);
+
             /* Changes the text fields values and tooltip texts */
             if (!disableCommentsRatio.isSelected()) {
-                if (crProjectReadability == 0.0) {
+                if (currentlySelectedFile == null || currentlySelectedFile.getCommentsRatio().getValue() == 0.0) {
                     jTFCommentsRatio.setText("n/a");
                     jTFCommentsRatio.setToolTipText(null);
                 } else {
-                    jTFCommentsRatio.setText(String.valueOf(new DecimalFormat("#0.00").format(crProjectReadability)));
-                    jTFCommentsRatio.setToolTipText("Project Readability");
+                    jTFCommentsRatio.setText(String.valueOf(new DecimalFormat("#0.00").format(currentlySelectedFile.getCommentsRatio().getValue())));
+                    jTFCommentsRatio.setToolTipText(currentlySelectedFile.getFile().getName() + " Readability Value");
                 }
 
                 commentsRatioDetailedResults = CommentsRatioLogic.getDetailedResults(javaFiles, SourceCodeFileLogic.getOpenedProjectName(), crProjectReadability);
             }
 
             if (!disableSres.isSelected()) {
-                if (sresProjectReadability == 0.0) {
+                if (currentlySelectedFile == null || sresProjectReadability == 0.0) {
                     jTFSres.setText("n/a");
                     jTFSres.setToolTipText(null);
                 } else {
-                    jTFSres.setText(String.valueOf(String.valueOf(new DecimalFormat("#0.00").format(sresProjectReadability))));
-                    jTFSres.setToolTipText("Project Readability");
+                    jTFSres.setText(String.valueOf(String.valueOf(new DecimalFormat("#0.00").format(currentlySelectedFile.getSres().getValue()))));
+                    jTFSres.setToolTipText(currentlySelectedFile.getFile().getName() + " Readability Value");
                 }
 
                 sresDetailedResults = SresLogic.getDetailedResults(javaFiles, SourceCodeFileLogic.getOpenedProjectName(), sresProjectReadability);
             }
 
             if (!disableBw.isSelected()) {
-                if (bwProjectReadability == 0.0) {
+                if (currentlySelectedFile == null || bwProjectReadability == 0.0) {
                     jTFBw.setText("n/a");
                     jTFBw.setToolTipText(null);
                 } else {
-                    jTFBw.setText(String.valueOf(String.valueOf(new DecimalFormat("#0.00").format(bwProjectReadability))));
-                    jTFBw.setToolTipText("Project Readability");
+                    jTFBw.setText(String.valueOf(String.valueOf(new DecimalFormat("#0.00").format(currentlySelectedFile.getBw().getValue()))));
+                    jTFBw.setToolTipText(currentlySelectedFile.getFile().getName() + " Readability Value");
                 }
 
                 bwDetailedResults = BwLogic.getDetailedResults(javaFiles, SourceCodeFileLogic.getOpenedProjectName(), bwProjectReadability);
@@ -769,8 +777,10 @@ public class ReadabilityFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelBw;
     private javax.swing.JPanel jPanelCommentsRatio;
     private javax.swing.JPanel jPanelSres;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTFBw;
     private javax.swing.JTextField jTFCommentsRatio;
     private javax.swing.JTextField jTFSres;
+    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }

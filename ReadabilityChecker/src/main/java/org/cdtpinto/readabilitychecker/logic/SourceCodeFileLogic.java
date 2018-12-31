@@ -152,4 +152,24 @@ public class SourceCodeFileLogic {
         return methods;
     }
 
+    /**
+     * Gets the currently selected file in the IDE from the list of files in the
+     * selected project.
+     *
+     * @param currentlySelectedFilePath the full path of the currently selected
+     * file.
+     * @param javaFiles list of all the files in the selected project with all
+     * the variables for all the formulas initialized.
+     * @return
+     */
+    public static SourceCodeFile getCurrentlySelectedFileFromFilesList(String currentlySelectedFilePath, List<SourceCodeFile> javaFiles) {
+        for (SourceCodeFile javaFile : javaFiles) {
+            if (javaFile.getFile().getAbsolutePath().equals(currentlySelectedFilePath)) {
+                return javaFile;
+            }
+        }
+
+        return null;
+    }
+
 }
