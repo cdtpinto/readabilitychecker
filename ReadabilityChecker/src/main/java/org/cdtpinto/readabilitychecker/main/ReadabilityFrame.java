@@ -597,6 +597,8 @@ public class ReadabilityFrame extends javax.swing.JFrame {
 
                 bwDetailedResults = BwLogic.getDetailedResults(javaFiles, SourceCodeFileLogic.getOpenedProjectName(), bwProjectReadability);
             }
+
+            jTFSelectedFile.setText("Selected File: " + currentlySelectedFile.getFile().getName());
         } else {
             /* Clear filled fields */
             jTFCommentsRatio.setText(null);
@@ -607,6 +609,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
             jTFCommentsRatio.setToolTipText(null);
             jTFSres.setToolTipText(null);
             jTFBw.setToolTipText(null);
+            jTFSelectedFile.setText(null);
         }
     }//GEN-LAST:event_jBtnCheckReadabilityActionPerformed
 
@@ -666,6 +669,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
 
             JFileChooser chooser = new JFileChooser();
             chooser.setSelectedFile(new File(ReadabilityFrameLogic.getResultsFileName()));
+            chooser.setDialogTitle("Export Results");
             //chooser.setFileFilter(new FileNameExtensionFilter("Text Documents (.txt)", "txt", "text"));
 
             int retrival = chooser.showSaveDialog(null);
@@ -754,7 +758,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnHelpActionPerformed
 
     private void jTFSelectedFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFSelectedFileActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTFSelectedFileActionPerformed
 
     /**
