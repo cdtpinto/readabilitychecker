@@ -192,6 +192,89 @@ public class CommentsRatioLogic {
     public static String getDetailedResults(List<SourceCodeFile> javaFiles, String project, double projectReadability) throws NullPointerException {
         StringBuilder detailedResults = new StringBuilder();
 
+        detailedResults.append("<b>");
+        detailedResults.append("Project: ");
+        detailedResults.append(project);
+        detailedResults.append("<br />");
+        detailedResults.append("Readability value: ");
+        detailedResults.append(String.valueOf(String.valueOf(new DecimalFormat("#0.00").format(projectReadability))));
+        detailedResults.append("</b>");
+        detailedResults.append("<br />");
+        detailedResults.append("<br />");
+
+        try {
+            for (SourceCodeFile file : javaFiles) {
+                if (file.getFile() != null) {
+                    /* Handle files */
+                    detailedResults.append("File: ");
+                    detailedResults.append(file.getFile().getName());
+                    detailedResults.append("<br />");
+                    detailedResults.append("LOC: ");
+                    detailedResults.append(file.getCommentsRatio().getLinesOfCode());
+                    detailedResults.append("<br />");
+                    detailedResults.append("LOM: ");
+                    detailedResults.append(file.getCommentsRatio().getLinesWithComments());
+                    detailedResults.append("<br />");
+
+                    if (file.getCommentsRatio().getLinesOfCode() == 0) {
+                        detailedResults.append("Readability value not calculated. File is empty.");
+                    } else if (file.getCommentsRatio().getLinesWithComments() == 0) {
+                        detailedResults.append("Readability value not calculated. File has no comments.");
+                    } else {
+                        detailedResults.append("Readability value: ");
+                        detailedResults.append(String.valueOf(new DecimalFormat("#0.00").format(file.getCommentsRatio().getValue())));
+                    }
+                    detailedResults.append("<br />");
+                    detailedResults.append("<br />");
+                }
+
+                /* Handle the methods in file */
+                for (Method m : file.getMethods()) {
+                    detailedResults.append("\t");
+                    detailedResults.append(m.getMethodDeclaration().getDeclarationAsString(true, false, true));
+                    detailedResults.append("<br />");
+                    if (m.getCommentsRatio() != null) {
+                        detailedResults.append("\tLOC: ");
+                        detailedResults.append(String.valueOf(m.getCommentsRatio().getLinesOfCode()));
+                        detailedResults.append("<br />");
+                        detailedResults.append("\tLOM: ");
+                        detailedResults.append(String.valueOf(m.getCommentsRatio().getLinesWithComments()));
+                        detailedResults.append("<br />");
+
+                        if (m.getCommentsRatio().getLinesWithComments() == 0) {
+                            detailedResults.append("\tReadability value not calculated. Method has no comments.");
+                        } else {
+                            detailedResults.append("\tReadability value: ");
+                            detailedResults.append(String.valueOf(new DecimalFormat("#0.00").format(m.getCommentsRatio().getValue())));
+                        }
+
+                    } else {
+                        detailedResults.append("\tCannot apply Comments Ratio formula to this method.");
+                    }
+                    detailedResults.append("<br />");
+                    detailedResults.append("<br />");
+                }
+            }
+        } catch (NullPointerException ex) {
+            System.out.println(ex);
+        }
+
+        detailedResults.setLength(detailedResults.length() - 12); // to remove the three last "<br />" added in the loop
+
+        return detailedResults.toString();
+    }
+
+    /**
+     * Gets the detailed results for the Comments Ratio readability formula in
+     * the correct format to be exported as a text file.
+     *
+     * @param javaFiles the Java files of the project tested by Comments Ratio.
+     * @return a String with the detailed information for every method tested by
+     * Comments Ratio.
+     */
+    public static String getDetailedResultsForTxtExport(List<SourceCodeFile> javaFiles, String project, double projectReadability) throws NullPointerException {
+        StringBuilder detailedResults = new StringBuilder();
+
         detailedResults.append("Project: ");
         detailedResults.append(project);
         detailedResults.append(System.lineSeparator());
@@ -257,7 +340,7 @@ public class CommentsRatioLogic {
             System.out.println(ex);
         }
 
-        detailedResults.setLength(detailedResults.length() - 3); // to remove the two last newline chars added in the loop
+        detailedResults.setLength(detailedResults.length() - 3); // to remove the three last newline chars added in the loop
 
         return detailedResults.toString();
     }

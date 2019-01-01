@@ -45,9 +45,12 @@ public class ReadabilityFrame extends javax.swing.JFrame {
     private String commentsRatioDetailedResults;
     private String sresDetailedResults;
     private String bwDetailedResults;
-    private JTextArea jTACommentsRatioDetailedResults;
-    private JTextArea jTASresDetailedResults;
-    private JTextArea jTABwDetailedResults;
+    //private JTextArea jTACommentsRatioDetailedResults;
+    //private JTextArea jTASresDetailedResults;
+    //private JTextArea jTABwDetailedResults;
+    private JEditorPane jEPCommentsRatioDetailedResults;
+    private JEditorPane jEPSresDetailedResults;
+    private JEditorPane jEPBwDetailedResults;
 
     /**
      * Creates new form ReadabilityFrame.
@@ -365,12 +368,15 @@ public class ReadabilityFrame extends javax.swing.JFrame {
         if (jTFSres.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "SRES value not calculated yet!", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            jTASresDetailedResults = new JTextArea();
-            jTASresDetailedResults.setText(sresDetailedResults);
-            jTASresDetailedResults.setCaretPosition(0);
-            jTASresDetailedResults.setEditable(false);
 
-            JScrollPane scrollPane = new JScrollPane(jTASresDetailedResults);
+            jEPSresDetailedResults = new JEditorPane("text/html", "");
+            jEPSresDetailedResults.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
+            jEPSresDetailedResults.setFont(new Font("Tahoma", Font.PLAIN, 12));
+            jEPSresDetailedResults.setText(sresDetailedResults);
+            jEPSresDetailedResults.setCaretPosition(0);
+            jEPSresDetailedResults.setEditable(false);
+
+            JScrollPane scrollPane = new JScrollPane(jEPSresDetailedResults);
             scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
             scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
             scrollPane.setPreferredSize(new Dimension(310, 400));
@@ -386,15 +392,17 @@ public class ReadabilityFrame extends javax.swing.JFrame {
         if (jTFCommentsRatio.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Comments Ratio value not calculated yet!", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            jTACommentsRatioDetailedResults = new JTextArea();
-            jTACommentsRatioDetailedResults.setText(commentsRatioDetailedResults);
-            jTACommentsRatioDetailedResults.setCaretPosition(0);
-            jTACommentsRatioDetailedResults.setEditable(false);
+            jEPCommentsRatioDetailedResults = new JEditorPane("text/html", "");
+            jEPCommentsRatioDetailedResults.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
+            jEPCommentsRatioDetailedResults.setFont(new Font("Tahoma", Font.PLAIN, 12));
+            jEPCommentsRatioDetailedResults.setText(commentsRatioDetailedResults);
+            jEPCommentsRatioDetailedResults.setCaretPosition(0);
+            jEPCommentsRatioDetailedResults.setEditable(false);
 
-            JScrollPane scrollPane = new JScrollPane(jTACommentsRatioDetailedResults);
+            JScrollPane scrollPane = new JScrollPane(jEPCommentsRatioDetailedResults);
             scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
             scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-            scrollPane.setPreferredSize(new Dimension(400, 400));
+            scrollPane.setPreferredSize(new Dimension(310, 400));
 
             JOptionPane.showMessageDialog(null, scrollPane, "Comments Ratio Detailed Results", JOptionPane.PLAIN_MESSAGE);
         }
@@ -425,12 +433,14 @@ public class ReadabilityFrame extends javax.swing.JFrame {
         if (jTFBw.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "B&W value not calculated yet!", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            jTABwDetailedResults = new JTextArea();
-            jTABwDetailedResults.setText(bwDetailedResults);
-            jTABwDetailedResults.setCaretPosition(0);
-            jTABwDetailedResults.setEditable(false);
+            jEPBwDetailedResults = new JEditorPane("text/html", "");
+            jEPBwDetailedResults.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
+            jEPBwDetailedResults.setFont(new Font("Tahoma", Font.PLAIN, 12));
+            jEPBwDetailedResults.setText(bwDetailedResults);
+            jEPBwDetailedResults.setCaretPosition(0);
+            jEPBwDetailedResults.setEditable(false);
 
-            JScrollPane scrollPane = new JScrollPane(jTABwDetailedResults);
+            JScrollPane scrollPane = new JScrollPane(jEPBwDetailedResults);
             scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
             scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
             scrollPane.setPreferredSize(new Dimension(310, 400));
@@ -609,7 +619,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
                 output.append(jTFCommentsRatio.getText());
                 output.append(System.lineSeparator());
                 output.append(System.lineSeparator());
-                output.append(commentsRatioDetailedResults);
+                output.append(CommentsRatioLogic.getDetailedResultsForTxtExport(javaFiles, SourceCodeFileLogic.getOpenedProjectName(), crProjectReadability));
                 output.append(System.lineSeparator());
                 output.append(System.lineSeparator());
             }
@@ -622,7 +632,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
                 output.append(jTFSres.getText());
                 output.append(System.lineSeparator());
                 output.append(System.lineSeparator());
-                output.append(sresDetailedResults);
+                output.append(SresLogic.getDetailedResultsForTxtExport(javaFiles, SourceCodeFileLogic.getOpenedProjectName(), sresProjectReadability));
                 output.append(System.lineSeparator());
                 output.append(System.lineSeparator());
             }
@@ -635,8 +645,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
                 output.append(jTFBw.getText());
                 output.append(System.lineSeparator());
                 output.append(System.lineSeparator());
-                output.append(bwDetailedResults);
-                output.append(System.lineSeparator());
+                output.append(BwLogic.getDetailedResultsForTxtExport(javaFiles, SourceCodeFileLogic.getOpenedProjectName(), bwProjectReadability));
             }
 
             JFileChooser chooser = new JFileChooser();

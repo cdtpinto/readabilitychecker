@@ -140,6 +140,63 @@ public class SresLogic {
     public static String getDetailedResults(List<SourceCodeFile> javaFiles, String project, double projectReadability) {
         StringBuilder detailedResults = new StringBuilder();
 
+        detailedResults.append("<b>");
+        detailedResults.append("Project: ");
+        detailedResults.append(project);
+        detailedResults.append("<br />");
+        detailedResults.append("Readability value: ");
+        detailedResults.append(String.valueOf(String.valueOf(new DecimalFormat("#0.00").format(projectReadability))));
+        detailedResults.append("</b>");
+        detailedResults.append("<br />");
+        detailedResults.append("<br />");
+
+        try {
+            for (SourceCodeFile file : javaFiles) {
+                if (file.getFile() != null) {
+                    detailedResults.append("File: ");
+                    detailedResults.append(file.getFile().getName());
+                    detailedResults.append("<br />");
+                    detailedResults.append("ASL: ");
+                    detailedResults.append(String.valueOf(new DecimalFormat("#0.00").format(file.getSres().getAsl())));
+                    detailedResults.append("<br />");
+                    detailedResults.append("AWL: ");
+                    detailedResults.append(String.valueOf(new DecimalFormat("#0.00").format(file.getSres().getAwl())));
+                    detailedResults.append("<br />");
+
+                    if (file.getSres().getAsl() == 0.0 && file.getSres().getAwl() == 0.0) {
+                        detailedResults.append("Readability value not calculated. Make sure this file doesn't have any feature introduced after Java SE 5.");
+                    } else if (file.getSres().getAsl() == 0.0) {
+                        detailedResults.append("Readability value not calculated. File has no Java sentences.");
+                    } else if (file.getSres().getAwl() == 0.0) {
+                        detailedResults.append("Readability value not calculated. File has no Java words.");
+                    } else {
+                        detailedResults.append("Readability value: ");
+                        detailedResults.append(String.valueOf(new DecimalFormat("#0.00").format(file.getSres().getValue())));
+                    }
+                    detailedResults.append("<br />");
+                    detailedResults.append("<br />");
+                }
+            }
+        } catch (NullPointerException ex) {
+            System.out.println(ex);
+        }
+
+        detailedResults.setLength(detailedResults.length() - 12); // to remove the three last "<br />" added in the loop
+
+        return detailedResults.toString();
+    }
+
+    /**
+     * Gets the detailed results for the SRES readability formula in the correct
+     * format to be exported as a text file.
+     *
+     * @param javaFiles the Java files of the project tested by SRES.
+     * @return a String with the detailed information for every method tested by
+     * SRES.
+     */
+    public static String getDetailedResultsForTxtExport(List<SourceCodeFile> javaFiles, String project, double projectReadability) {
+        StringBuilder detailedResults = new StringBuilder();
+
         detailedResults.append("Project: ");
         detailedResults.append(project);
         detailedResults.append(System.lineSeparator());
@@ -179,7 +236,7 @@ public class SresLogic {
             System.out.println(ex);
         }
 
-        detailedResults.setLength(detailedResults.length() - 3); // to remove the two last newline chars added in the loop
+        detailedResults.setLength(detailedResults.length() - 3); // to remove the three last newline chars added in the loop
 
         return detailedResults.toString();
     }

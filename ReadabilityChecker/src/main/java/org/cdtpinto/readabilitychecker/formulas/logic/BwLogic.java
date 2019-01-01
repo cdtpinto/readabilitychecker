@@ -102,6 +102,45 @@ public class BwLogic {
     public static String getDetailedResults(List<SourceCodeFile> javaFiles, String project, double projectReadability) {
         StringBuilder detailedResults = new StringBuilder();
 
+        detailedResults.append("<b>");
+        detailedResults.append("Project: ");
+        detailedResults.append(project);
+        detailedResults.append("<br />");
+        detailedResults.append("Readability value: ");
+        detailedResults.append(String.valueOf(String.valueOf(new DecimalFormat("#0.00").format(projectReadability))));
+        detailedResults.append("</b>");
+        detailedResults.append("<br />");
+        detailedResults.append("<br />");
+
+        for (SourceCodeFile file : javaFiles) {
+            if (file.getFile() != null) {
+                detailedResults.append("File: ");
+                detailedResults.append(file.getFile().getName());
+                detailedResults.append("<br />");
+
+                detailedResults.append("Readability value: ");
+                detailedResults.append(String.valueOf(new DecimalFormat("#0.00").format(file.getBw().getValue())));
+                detailedResults.append("<br />");
+                detailedResults.append("<br />");
+            }
+        }
+
+        detailedResults.setLength(detailedResults.length() - 12); // to remove the three last "<br />" added in the loop
+
+        return detailedResults.toString();
+    }
+
+    /**
+     * Gets the detailed results for the B&W readability metric in the correct
+     * format to be exported as a text file.
+     *
+     * @param javaFiles the Java files of the project tested by B&W.
+     * @return a String with the detailed information for every method tested by
+     * B&W.
+     */
+    public static String getDetailedResultsForTxtExport(List<SourceCodeFile> javaFiles, String project, double projectReadability) {
+        StringBuilder detailedResults = new StringBuilder();
+
         detailedResults.append("Project: ");
         detailedResults.append(project);
         detailedResults.append(System.lineSeparator());
@@ -123,7 +162,7 @@ public class BwLogic {
             }
         }
 
-        detailedResults.setLength(detailedResults.length() - 3); // to remove the two last newline chars added in the loop
+        detailedResults.setLength(detailedResults.length() - 3); // to remove the three last newline chars added in the loop
 
         return detailedResults.toString();
     }
