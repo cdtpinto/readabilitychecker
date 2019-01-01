@@ -566,7 +566,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
                     jTFBw.setToolTipText(null);
                 } else {
                     jTFBw.setText(String.valueOf(String.valueOf(new DecimalFormat("#0.00").format(currentlySelectedFile.getBw().getValue()))));
-                    jTFBw.setToolTipText(currentlySelectedFile.getFile().getName() + " Readability Value");
+                    jTFBw.setToolTipText(currentlySelectedFile.getFile().getName() + " readability value");
                 }
 
                 bwDetailedResults = BwLogic.getDetailedResults(javaFiles, SourceCodeFileLogic.getOpenedProjectName(), bwProjectReadability);

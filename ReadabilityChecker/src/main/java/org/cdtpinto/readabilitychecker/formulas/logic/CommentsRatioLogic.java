@@ -257,6 +257,8 @@ public class CommentsRatioLogic {
             System.out.println(ex);
         }
 
+        detailedResults.setLength(detailedResults.length() - 3); // to remove the two last newline chars added in the loop
+
         return detailedResults.toString();
     }
 
