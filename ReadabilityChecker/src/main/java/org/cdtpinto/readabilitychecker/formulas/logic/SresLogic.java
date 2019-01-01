@@ -164,7 +164,7 @@ public class SresLogic {
                     detailedResults.append("<br />");
 
                     if (file.getSres().getAsl() == 0.0 && file.getSres().getAwl() == 0.0) {
-                        detailedResults.append("Readability value not calculated. Make sure this file doesn't have any feature introduced after Java SE 5.");
+                        detailedResults.append("Readability value not calculated. Make sure this file doesn't have features introduced after Java SE 5.");
                     } else if (file.getSres().getAsl() == 0.0) {
                         detailedResults.append("Readability value not calculated. File has no Java sentences.");
                     } else if (file.getSres().getAwl() == 0.0) {

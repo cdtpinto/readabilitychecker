@@ -2,6 +2,9 @@ package org.cdtpinto.readabilitychecker.logic;
 
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Frame;
+import java.awt.Image;
+import java.awt.Insets;
 import java.time.LocalDateTime;
 
 /**

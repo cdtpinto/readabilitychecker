@@ -23,6 +23,7 @@ import org.cdtpinto.readabilitychecker.logic.ReadabilityFrameLogic;
 import org.cdtpinto.readabilitychecker.logic.SourceCodeFileLogic;
 import org.openide.util.Exceptions;
 import java.awt.Desktop;
+import javax.swing.ImageIcon;
 import javax.swing.JEditorPane;
 import javax.swing.JFileChooser;
 import javax.swing.event.HyperlinkEvent;
@@ -45,9 +46,6 @@ public class ReadabilityFrame extends javax.swing.JFrame {
     private String commentsRatioDetailedResults;
     private String sresDetailedResults;
     private String bwDetailedResults;
-    //private JTextArea jTACommentsRatioDetailedResults;
-    //private JTextArea jTASresDetailedResults;
-    //private JTextArea jTABwDetailedResults;
     private JEditorPane jEPCommentsRatioDetailedResults;
     private JEditorPane jEPSresDetailedResults;
     private JEditorPane jEPBwDetailedResults;
@@ -57,6 +55,9 @@ public class ReadabilityFrame extends javax.swing.JFrame {
      */
     public ReadabilityFrame() {
         initComponents();
+        //ImageIcon img = new ImageIcon("C:\\Users\\Claudio\\Documents\\readabilitychecker\\ReadabilityChecker\\src\\main\\java\\org\\cdtpinto\\readabilitychecker\\images\\readabilitycheckericon20.png");
+        ImageIcon img = new ImageIcon("src/main/java/org/cdtpinto/readabilitychecker/images/readabilitycheckericon20.png");
+        setIconImage(img.getImage());
         setTitle("Readability Checker " + version);
         jLblBw.setText("B&W:"); // a workaround, so the ampersand character (&) is displayed in the ui
         setVisible(true);
