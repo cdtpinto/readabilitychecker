@@ -441,7 +441,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_disableSresActionPerformed
 
     /**
-     * Shows the detailed results for the B&W metric analysis.
+     * Shows the detailed results for the B&amp;W metric analysis.
      */
     private void jBtnBwDetailedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBwDetailedActionPerformed
         if (jTFBw.getText().isEmpty()) {
@@ -464,7 +464,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnBwDetailedActionPerformed
 
     /**
-     * Disables the B&W metric analysis.
+     * Disables the B&amp;W metric analysis.
      */
     private void disableBwActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disableBwActionPerformed
         jTFBw.setText(null);

@@ -106,9 +106,9 @@ public class CommentsRatioLogic {
         CommentsRatio cr = new CommentsRatio();
 
         if (cu != null) {
-            cr.setLinesOfCode(crl.getLinesOfCodeFromFile(cu));
-            cr.setLinesWithComments(crl.getLinesWithCommentsFromFile(cu));
-            cr.setValue(crl.calculateCommentsRatio(cr.getLinesOfCode(), cr.getLinesWithComments()));
+            cr.setLoc(crl.getLinesOfCodeFromFile(cu));
+            cr.setLom(crl.getLinesWithCommentsFromFile(cu));
+            cr.setValue(crl.calculateCommentsRatio(cr.getLoc(), cr.getLom()));
         }
 
         return cr;
@@ -127,9 +127,9 @@ public class CommentsRatioLogic {
             for (Method m : methods) {
                 CommentsRatio cr = new CommentsRatio();
 
-                cr.setLinesOfCode(crl.getLinesOfCodeFromMethod(m));
-                cr.setLinesWithComments(crl.getLinesWithCommentsFromMethod(m));
-                cr.setValue(crl.calculateCommentsRatio(cr.getLinesOfCode(), cr.getLinesWithComments()));
+                cr.setLoc(crl.getLinesOfCodeFromMethod(m));
+                cr.setLom(crl.getLinesWithCommentsFromMethod(m));
+                cr.setValue(crl.calculateCommentsRatio(cr.getLoc(), cr.getLom()));
 
                 m.setCommentsRatio(cr);
             }
@@ -186,6 +186,8 @@ public class CommentsRatioLogic {
      * Gets the detailed results for the Comments Ratio readability formula.
      *
      * @param javaFiles the Java files of the project tested by Comments Ratio.
+     * @param project the name of the project.
+     * @param projectReadability the readability value of the project.
      * @return a String with the detailed information for every method tested by
      * Comments Ratio.
      */
@@ -210,15 +212,15 @@ public class CommentsRatioLogic {
                     detailedResults.append(file.getFile().getName());
                     detailedResults.append("<br />");
                     detailedResults.append("LOC: ");
-                    detailedResults.append(file.getCommentsRatio().getLinesOfCode());
+                    detailedResults.append(file.getCommentsRatio().getLoc());
                     detailedResults.append("<br />");
                     detailedResults.append("LOM: ");
-                    detailedResults.append(file.getCommentsRatio().getLinesWithComments());
+                    detailedResults.append(file.getCommentsRatio().getLom());
                     detailedResults.append("<br />");
 
-                    if (file.getCommentsRatio().getLinesOfCode() == 0) {
+                    if (file.getCommentsRatio().getLoc() == 0) {
                         detailedResults.append("Readability value not calculated. File is empty.");
-                    } else if (file.getCommentsRatio().getLinesWithComments() == 0) {
+                    } else if (file.getCommentsRatio().getLom() == 0) {
                         detailedResults.append("Readability value not calculated. File has no comments.");
                     } else {
                         detailedResults.append("Readability value: ");
@@ -235,13 +237,13 @@ public class CommentsRatioLogic {
                     detailedResults.append("<br />");
                     if (m.getCommentsRatio() != null) {
                         detailedResults.append("\tLOC: ");
-                        detailedResults.append(String.valueOf(m.getCommentsRatio().getLinesOfCode()));
+                        detailedResults.append(String.valueOf(m.getCommentsRatio().getLoc()));
                         detailedResults.append("<br />");
                         detailedResults.append("\tLOM: ");
-                        detailedResults.append(String.valueOf(m.getCommentsRatio().getLinesWithComments()));
+                        detailedResults.append(String.valueOf(m.getCommentsRatio().getLom()));
                         detailedResults.append("<br />");
 
-                        if (m.getCommentsRatio().getLinesWithComments() == 0) {
+                        if (m.getCommentsRatio().getLom() == 0) {
                             detailedResults.append("\tReadability value not calculated. Method has no comments.");
                         } else {
                             detailedResults.append("\tReadability value: ");
@@ -269,6 +271,8 @@ public class CommentsRatioLogic {
      * the correct format to be exported as a text file.
      *
      * @param javaFiles the Java files of the project tested by Comments Ratio.
+     * @param project the name of the project.
+     * @param projectReadability the readability value of the project.
      * @return a String with the detailed information for every method tested by
      * Comments Ratio.
      */
@@ -291,15 +295,15 @@ public class CommentsRatioLogic {
                     detailedResults.append(file.getFile().getName());
                     detailedResults.append(System.lineSeparator());
                     detailedResults.append("LOC: ");
-                    detailedResults.append(file.getCommentsRatio().getLinesOfCode());
+                    detailedResults.append(file.getCommentsRatio().getLoc());
                     detailedResults.append(System.lineSeparator());
                     detailedResults.append("LOM: ");
-                    detailedResults.append(file.getCommentsRatio().getLinesWithComments());
+                    detailedResults.append(file.getCommentsRatio().getLom());
                     detailedResults.append(System.lineSeparator());
 
-                    if (file.getCommentsRatio().getLinesOfCode() == 0) {
+                    if (file.getCommentsRatio().getLoc() == 0) {
                         detailedResults.append("Readability value not calculated. File is empty.");
-                    } else if (file.getCommentsRatio().getLinesWithComments() == 0) {
+                    } else if (file.getCommentsRatio().getLom() == 0) {
                         detailedResults.append("Readability value not calculated. File has no comments.");
                     } else {
                         detailedResults.append("Readability value: ");
@@ -316,13 +320,13 @@ public class CommentsRatioLogic {
                     detailedResults.append(System.lineSeparator());
                     if (m.getCommentsRatio() != null) {
                         detailedResults.append("\tLOC: ");
-                        detailedResults.append(String.valueOf(m.getCommentsRatio().getLinesOfCode()));
+                        detailedResults.append(String.valueOf(m.getCommentsRatio().getLoc()));
                         detailedResults.append(System.lineSeparator());
                         detailedResults.append("\tLOM: ");
-                        detailedResults.append(String.valueOf(m.getCommentsRatio().getLinesWithComments()));
+                        detailedResults.append(String.valueOf(m.getCommentsRatio().getLom()));
                         detailedResults.append(System.lineSeparator());
 
-                        if (m.getCommentsRatio().getLinesWithComments() == 0) {
+                        if (m.getCommentsRatio().getLom() == 0) {
                             detailedResults.append("\tReadability value not calculated. Method has no comments.");
                         } else {
                             detailedResults.append("\tReadability value: ");

@@ -134,6 +134,8 @@ public class SresLogic {
      * Gets the detailed results for the SRES readability formula.
      *
      * @param javaFiles the Java files of the project tested by SRES.
+     * @param project the name of the project.
+     * @param projectReadability the readability value of the project.
      * @return a String with the detailed information for every method tested by
      * SRES.
      */
@@ -191,6 +193,8 @@ public class SresLogic {
      * format to be exported as a text file.
      *
      * @param javaFiles the Java files of the project tested by SRES.
+     * @param project the name of the project.
+     * @param projectReadability the readability value of the project.
      * @return a String with the detailed information for every method tested by
      * SRES.
      */

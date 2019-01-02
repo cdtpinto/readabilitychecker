@@ -9,7 +9,7 @@ import org.cdtpinto.readabilitychecker.codeabstractionlevels.SourceCodeFile;
 import org.cdtpinto.readabilitychecker.formulas.objects.BW;
 
 /**
- * Contains the logical methods for the B&W metric.
+ * Contains the logical methods for the B&amp;W metric.
  *
  * @author <a href="mailto:1120301@isep.ipp.pt">Cláudio Pinto</a>
  */
@@ -34,19 +34,13 @@ public class BwLogic {
             while ((line = br.readLine()) != null) {
                 currentBlockLineCount++;
                 if (currentBlockLineCount <= BLOCK_SIZE) {
-                    //codeBlock.append(line).append(System.getProperty("line.separator"));
                     codeBlock.append(line).append('\n');
                 } else {
                     valueSum += raykernel.apps.readability.eval.Main.getReadability(codeBlock.toString());
 
-//                    System.out.println("bloco");
-//                    System.out.println(codeBlock.toString());
-//                    System.out.println("value -> " + raykernel.apps.readability.eval.Main.getReadability(codeBlock.toString()));
-//                    System.out.println("");
                     totalBlockCount++;
                     currentBlockLineCount = 1;
                     codeBlock.setLength(0);
-                    //codeBlock.append(line).append(System.getProperty("line.separator"));
                     codeBlock.append(line).append('\n');
                 }
             }
@@ -55,10 +49,6 @@ public class BwLogic {
             if (codeBlock.length() != 0) {
                 valueSum += raykernel.apps.readability.eval.Main.getReadability(codeBlock.toString());
 
-//                System.out.println("bloco");
-//                System.out.println(codeBlock.toString());
-//                System.out.println("value -> " + raykernel.apps.readability.eval.Main.getReadability(codeBlock.toString()));
-//                System.out.println("");
                 totalBlockCount++;
             }
         }
@@ -67,10 +57,10 @@ public class BwLogic {
     }
 
     /**
-     * Gets the B&W readability value of a project.
+     * Gets the B&amp;W readability value of a project.
      *
      * @param sourceCodeFiles represents every Java file in a project.
-     * @return the B&W readability value for the project.
+     * @return the B&amp;W readability value for the project.
      */
     public double getReadabilityOfProject(List<SourceCodeFile> sourceCodeFiles) {
         double sumReadabilityValues = 0;
@@ -93,11 +83,13 @@ public class BwLogic {
     }
 
     /**
-     * Gets the detailed results for the B&W readability metric.
+     * Gets the detailed results for the B&amp;W readability metric.
      *
-     * @param javaFiles the Java files of the project tested by B&W.
+     * @param javaFiles the Java files of the project tested by B&amp;W.
+     * @param project the name of the project.
+     * @param projectReadability the readability value of the project.
      * @return a String with the detailed information for every method tested by
-     * B&W.
+     * B&amp;W.
      */
     public static String getDetailedResults(List<SourceCodeFile> javaFiles, String project, double projectReadability) {
         StringBuilder detailedResults = new StringBuilder();
@@ -131,12 +123,14 @@ public class BwLogic {
     }
 
     /**
-     * Gets the detailed results for the B&W readability metric in the correct
-     * format to be exported as a text file.
+     * Gets the detailed results for the B&amp;W readability metric in the
+     * correct format to be exported as a text file.
      *
-     * @param javaFiles the Java files of the project tested by B&W.
+     * @param javaFiles the Java files of the project tested by B&amp;W.
+     * @param project the name of the project.
+     * @param projectReadability the readability value of the project.
      * @return a String with the detailed information for every method tested by
-     * B&W.
+     * B&amp;W.
      */
     public static String getDetailedResultsForTxtExport(List<SourceCodeFile> javaFiles, String project, double projectReadability) {
         StringBuilder detailedResults = new StringBuilder();

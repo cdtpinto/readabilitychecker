@@ -1,7 +1,7 @@
 package org.cdtpinto.readabilitychecker.formulas.objects;
 
 /**
- * Buse & Weimer (B&W) metric.
+ * Buse B&amp;W Weimer (B&amp;W) metric.
  *
  * @author <a href="mailto:1120301@isep.ipp.pt">Cláudio Pinto</a>
  */

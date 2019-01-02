@@ -160,7 +160,9 @@ public class SourceCodeFileLogic {
      * file.
      * @param javaFiles list of all the files in the selected project with all
      * the variables for all the formulas initialized.
-     * @return
+     * @return a <code>SourceCodeFile</code> object of the currently selected
+     * file in the IDE. This object has all the values for each formula
+     * initialized and updated.
      */
     public static SourceCodeFile getCurrentlySelectedFileFromFilesList(String currentlySelectedFilePath, List<SourceCodeFile> javaFiles) {
         for (SourceCodeFile javaFile : javaFiles) {

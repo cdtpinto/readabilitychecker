@@ -7,38 +7,38 @@ package org.cdtpinto.readabilitychecker.formulas.objects;
  */
 public class CommentsRatio {
 
-    private int linesOfCode;
-    private int linesWithComments;
+    private int loc;    // Lines Of Code
+    private int lom;    // Lines With Comments
     private double value;
 
     public CommentsRatio() {
         this(0, 0, 0.0);
     }
 
-    public CommentsRatio(int linesOfCode, int linesWithComments, double value) {
-        setLinesOfCode(linesOfCode);
-        setLinesWithComments(linesWithComments);
+    public CommentsRatio(int loc, int lom, double value) {
+        setLoc(loc);
+        setLom(lom);
         setValue(value);
     }
 
-    public int getLinesOfCode() {
-        return linesOfCode;
+    public int getLoc() {
+        return loc;
     }
 
-    public int getLinesWithComments() {
-        return linesWithComments;
+    public int getLom() {
+        return lom;
     }
 
     public double getValue() {
         return value;
     }
 
-    public void setLinesOfCode(int linesOfCode) {
-        this.linesOfCode = linesOfCode;
+    public void setLoc(int loc) {
+        this.loc = loc;
     }
 
-    public void setLinesWithComments(int linesWithComments) {
-        this.linesWithComments = linesWithComments;
+    public void setLom(int lom) {
+        this.lom = lom;
     }
 
     public void setValue(double value) {
