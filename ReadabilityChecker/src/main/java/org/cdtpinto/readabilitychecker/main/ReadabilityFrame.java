@@ -665,7 +665,11 @@ public class ReadabilityFrame extends javax.swing.JFrame {
                 output.append(System.lineSeparator());
                 output.append(System.lineSeparator());
                 output.append(BwLogic.getDetailedResultsForTxtExport(javaFiles, SourceCodeFileLogic.getOpenedProjectName(), bwProjectReadability));
+                output.append(System.lineSeparator());
+                output.append(System.lineSeparator());
             }
+
+            output.setLength(output.length() - 3); // to remove the three last newline chars added in the loop
 
             JFileChooser chooser = new JFileChooser();
             chooser.setSelectedFile(new File(ReadabilityFrameLogic.getResultsFileName()));
@@ -722,7 +726,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
                 + "Readability values range from 0 to 1. The closer it gets to 1, the more readable the code is.<br />"
                 + "Fully supports Java SE 11.<br />"
                 + "<br />"
-                + "For additional information, and further details on the formulas and metrics, please refer to <a href=\"https://cdtpinto.github.io/pages/readabilitychecker\">https://cdtpinto.github.io/pages/readabilitychecker</a>"
+                + "For additional information and further details on the formulas and metrics, please refer to <a href=\"https://cdtpinto.github.io/pages/readabilitychecker\">https://cdtpinto.github.io/pages/readabilitychecker</a>"
                 + "</html>";
 
         JEditorPane jEPHelp = new JEditorPane();
