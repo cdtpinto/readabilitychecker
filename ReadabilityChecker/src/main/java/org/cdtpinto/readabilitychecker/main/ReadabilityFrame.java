@@ -13,7 +13,6 @@ import java.text.DecimalFormat;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import org.cdtpinto.readabilitychecker.codeabstractionlevels.SourceCodeFile;
 import org.cdtpinto.readabilitychecker.formulas.logic.CommentsRatioLogic;
@@ -55,7 +54,6 @@ public class ReadabilityFrame extends javax.swing.JFrame {
      */
     public ReadabilityFrame() {
         initComponents();
-        //ImageIcon img = new ImageIcon("C:\\Users\\Claudio\\Documents\\readabilitychecker\\ReadabilityChecker\\src\\main\\java\\org\\cdtpinto\\readabilitychecker\\images\\readabilitycheckericon20.png");
         ImageIcon img = new ImageIcon("src/main/java/org/cdtpinto/readabilitychecker/images/readabilitycheckericon20.png");
         setIconImage(img.getImage());
         setTitle("Readability Checker " + version);
@@ -742,7 +740,6 @@ public class ReadabilityFrame extends javax.swing.JFrame {
             @Override
             public void hyperlinkUpdate(HyperlinkEvent hle) {
                 if (HyperlinkEvent.EventType.ACTIVATED.equals(hle.getEventType())) {
-                    //System.out.println(hle.getURL());
                     Desktop desktop = Desktop.getDesktop();
                     try {
                         desktop.browse(hle.getURL().toURI());
