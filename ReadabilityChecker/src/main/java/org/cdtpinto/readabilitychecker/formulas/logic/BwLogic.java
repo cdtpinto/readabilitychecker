@@ -15,7 +15,7 @@ import org.cdtpinto.readabilitychecker.formulas.objects.BW;
  */
 public class BwLogic {
 
-    private static final int BLOCK_SIZE = 8;
+    private static final int SNIPPET_SIZE = 8;    // the file will be split in blocks of code with this number of lines
 
     /**
      * Analyzes a given source code file.
@@ -33,7 +33,7 @@ public class BwLogic {
             String line;
             while ((line = br.readLine()) != null) {
                 currentBlockLineCount++;
-                if (currentBlockLineCount <= BLOCK_SIZE) {
+                if (currentBlockLineCount <= SNIPPET_SIZE) {
                     codeBlock.append(line).append('\n');
                 } else {
                     valueSum += raykernel.apps.readability.eval.Main.getReadability(codeBlock.toString());

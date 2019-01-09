@@ -5,6 +5,8 @@
     <artifactId>readabilitychecker</artifactId>
     <version>1.1.0</version>
     <packaging>nbm</packaging>
+    <name>Readability Checker</name>
+    <description>A plugin for the NetBeans IDE that estimates Java code readability using three different software readability formulas and metrics.</description>
     
     <developers>
         <developer>
@@ -14,6 +16,15 @@
             <organizationUrl>https://github.com/cdtpinto</organizationUrl>
         </developer>
     </developers>
+    
+    <licenses>
+        <license>
+            <name>GNU General Public License Version 3.0</name>
+            <url>https://choosealicense.com/licenses/gpl-3.0/</url>
+            <distribution>repo</distribution>
+            <comments>The GNU General Public License is a free, copyleft license for software and other kinds of works.</comments>
+        </license>
+    </licenses>
     
     <profiles>
         <profile>
@@ -79,7 +90,7 @@
                     <keystore>nbproject/private/keystore</keystore>
                     <keystorealias>cdtpinto</keystorealias>
                     <licenseName>GNU 3.0</licenseName>
-                    <licenseFile>license.txt</licenseFile>
+                    <licenseFile>license.txt</licenseFile>                    
                 </configuration>
             </plugin>
             <!---->
@@ -101,6 +112,7 @@
             <url>file:${project.basedir}/lib</url>
         </repository>
     </repositories>
+    
     <dependencies>
         <dependency>
             <groupId>org.netbeans.api</groupId>
@@ -145,7 +157,7 @@
         <dependency>
             <groupId>com.github.javaparser</groupId>
             <artifactId>javaparser-symbol-solver-core</artifactId>
-            <version>3.6.19</version>
+            <version>3.9.1</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -193,6 +205,18 @@
             <version>1.0</version>
         </dependency>
         <dependency>
+            <groupId>sorc.articles</groupId>
+            <artifactId>collapse</artifactId>
+            <version>1.0</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>src</groupId>
+            <artifactId>xmleditorkit</artifactId>
+            <version>1.0</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
@@ -234,16 +258,5 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    <name>Readability Checker</name>
-    <description>NetBeans plugin that uses three different readability formulas and metrics to estimate software readability.</description>
-    
-    <licenses>
-        <license>
-            <name>GNU General Public License Version 3.0</name>
-            <url>https://choosealicense.com/licenses/gpl-3.0/</url>
-            <distribution>repo</distribution>
-            <comments>The GNU General Public License is a free, copyleft license for software and other kinds of works.</comments>
-        </license>
-    </licenses>
     
 </project>
