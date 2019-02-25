@@ -5,6 +5,7 @@ import org.cdtpinto.readabilitychecker.formulas.objects.CommentsRatio;
 import java.io.File;
 import java.util.ArrayList;
 import org.cdtpinto.readabilitychecker.formulas.objects.BW;
+import org.cdtpinto.readabilitychecker.formulas.objects.RSM;
 
 /**
  * A source code file (.java file).
@@ -17,21 +18,23 @@ public class SourceCodeFile {
     private CommentsRatio commentsRatio;
     private SRES sres;
     private BW bw;
+    private RSM rsm;
     private ArrayList<Method> methods;
 
     public SourceCodeFile() {
-        this(null, null, null, null, null);
+        this(null, null, null, null, null, null);
     }
 
     public SourceCodeFile(File file) {
-        this(file, new CommentsRatio(), new SRES(), new BW(), new ArrayList<Method>());
+        this(file, new CommentsRatio(), new SRES(), new BW(), new RSM(), new ArrayList<Method>());
     }
 
-    public SourceCodeFile(File file, CommentsRatio commentsRatio, SRES sres, BW bw, ArrayList<Method> methods) {
+    public SourceCodeFile(File file, CommentsRatio commentsRatio, SRES sres, BW bw, RSM rsm, ArrayList<Method> methods) {
         setFile(file);
         setCommentsRatio(commentsRatio);
         setSres(sres);
         setBw(bw);
+        setRsm(rsm);
         setMethods(methods);
     }
 
@@ -49,6 +52,10 @@ public class SourceCodeFile {
 
     public BW getBw() {
         return bw;
+    }
+
+    public RSM getRsm() {
+        return rsm;
     }
 
     public ArrayList<Method> getMethods() {
@@ -69,6 +76,10 @@ public class SourceCodeFile {
 
     public void setBw(BW bw) {
         this.bw = bw;
+    }
+
+    public void setRsm(RSM rsm) {
+        this.rsm = rsm;
     }
 
     public void setMethods(ArrayList<Method> methods) {

@@ -569,6 +569,9 @@
               <Dimension value="[6, 28]"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTFRsmActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jBtnRsmDetailed">
           <Properties>
@@ -576,6 +579,9 @@
               <ResourceString bundle="org/cdtpinto/readabilitychecker/main/Bundle.properties" key="ReadabilityFrame.jBtnRsmDetailed.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jBtnRsmDetailedActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

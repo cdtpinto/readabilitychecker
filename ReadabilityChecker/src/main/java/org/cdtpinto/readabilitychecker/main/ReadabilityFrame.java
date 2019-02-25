@@ -28,6 +28,7 @@ import javax.swing.JFileChooser;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 import org.cdtpinto.readabilitychecker.formulas.logic.BwLogic;
+import org.cdtpinto.readabilitychecker.formulas.logic.RsmLogic;
 
 /**
  * Main window of the application.
@@ -42,12 +43,15 @@ public class ReadabilityFrame extends javax.swing.JFrame {
     private double crProjectReadability;
     private double sresProjectReadability;
     private double bwProjectReadability;
+    private double rsmProjectReadability;
     private String commentsRatioDetailedResults;
     private String sresDetailedResults;
     private String bwDetailedResults;
+    private String rsmDetailedResults;
     private JEditorPane jEPCommentsRatioDetailedResults;
     private JEditorPane jEPSresDetailedResults;
     private JEditorPane jEPBwDetailedResults;
+    private JEditorPane jEPRsmDetailedResults;
 
     /**
      * Creates new form ReadabilityFrame.
@@ -370,8 +374,18 @@ public class ReadabilityFrame extends javax.swing.JFrame {
         jTFRsm.setText(org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.jTFRsm.text")); // NOI18N
         jTFRsm.setOpaque(false);
         jTFRsm.setPreferredSize(new java.awt.Dimension(6, 28));
+        jTFRsm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTFRsmActionPerformed(evt);
+            }
+        });
 
         org.openide.awt.Mnemonics.setLocalizedText(jBtnRsmDetailed, org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.jBtnRsmDetailed.text")); // NOI18N
+        jBtnRsmDetailed.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnRsmDetailedActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelRsmLayout = new javax.swing.GroupLayout(jPanelRsm);
         jPanelRsm.setLayout(jPanelRsmLayout);
@@ -627,6 +641,19 @@ public class ReadabilityFrame extends javax.swing.JFrame {
             bwProjectReadability = bwl.getReadabilityOfProject(javaFiles);
         }
 
+        if (!disableRsm.isSelected()) {
+            RsmLogic rsml = new RsmLogic();
+
+            for (SourceCodeFile file : javaFiles) {
+                try {
+                    rsml.analyzeFile(file);
+                } catch (IOException ex) {
+                    Exceptions.printStackTrace(ex);
+                }
+            }
+            rsmProjectReadability = rsml.getReadabilityOfProject(javaFiles);
+        }
+
         if (javaFiles != null && !javaFiles.isEmpty()) {    // There is an opened project
             SourceCodeFile currentlySelectedFile = SourceCodeFileLogic.getCurrentlySelectedFileFromFilesList(SourceCodeFileLogic.getCurrentlyOpenedFile().getFile().getAbsolutePath(), javaFiles);
 
@@ -672,17 +699,31 @@ public class ReadabilityFrame extends javax.swing.JFrame {
                 bwDetailedResults = BwLogic.getDetailedResults(javaFiles, SourceCodeFileLogic.getOpenedProjectName(), bwProjectReadability);
             }
 
+            if (!disableRsm.isSelected()) {
+                if (currentlySelectedFile == null || rsmProjectReadability == 0.00) {
+                    jTFRsm.setText("n/a");
+                    jTFRsm.setToolTipText(null);
+                } else {
+                    jTFRsm.setText(String.valueOf(String.valueOf(new DecimalFormat("#0.00").format(currentlySelectedFile.getBw().getValue()))));
+                    jTFRsm.setToolTipText(currentlySelectedFile.getFile().getName() + " readability value");
+                }
+
+                rsmDetailedResults = RsmLogic.getDetailedResults(javaFiles, SourceCodeFileLogic.getOpenedProjectName(), bwProjectReadability);
+            }
+
             jTFSelectedFile.setText("Selected File: " + currentlySelectedFile.getFile().getName());
         } else {
             /* Clear filled fields */
             jTFCommentsRatio.setText(null);
             jTFSres.setText(null);
             jTFBw.setText(null);
+            jTFRsm.setText(null);
 
             /* Clear tooltip texts */
             jTFCommentsRatio.setToolTipText(null);
             jTFSres.setToolTipText(null);
             jTFBw.setToolTipText(null);
+            jTFRsm.setToolTipText(null);
             jTFSelectedFile.setText(null);
         }
     }//GEN-LAST:event_jBtnCheckReadabilityActionPerformed
@@ -739,6 +780,19 @@ public class ReadabilityFrame extends javax.swing.JFrame {
                 output.append(System.lineSeparator());
                 output.append(System.lineSeparator());
                 output.append(BwLogic.getDetailedResultsForTxtExport(javaFiles, SourceCodeFileLogic.getOpenedProjectName(), bwProjectReadability));
+                output.append(System.lineSeparator());
+                output.append(System.lineSeparator());
+            }
+
+            if (!jTFRsm.getText().isEmpty()) {
+                output.append("# RSM #");
+                output.append(System.lineSeparator());
+                output.append(System.lineSeparator());
+                output.append("Project readability: ");
+                output.append(jTFRsm.getText());
+                output.append(System.lineSeparator());
+                output.append(System.lineSeparator());
+                output.append(BwLogic.getDetailedResultsForTxtExport(javaFiles, SourceCodeFileLogic.getOpenedProjectName(), rsmProjectReadability));
                 output.append(System.lineSeparator());
                 output.append(System.lineSeparator());
             }
@@ -839,8 +893,34 @@ public class ReadabilityFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jTFSelectedFileActionPerformed
 
     private void disableRsmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disableRsmActionPerformed
-        // TODO add your handling code here:
+        jTFRsm.setText(null);
+        jTFRsm.setToolTipText(null);
+        ReadabilityFrameLogic.disableComponents(jPanelRsm, !disableRsm.isSelected());
     }//GEN-LAST:event_disableRsmActionPerformed
+
+    private void jTFRsmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFRsmActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTFRsmActionPerformed
+
+    private void jBtnRsmDetailedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnRsmDetailedActionPerformed
+        if (jTFRsm.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "RSM value not calculated yet!", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            jEPRsmDetailedResults = new JEditorPane("text/html", "");
+            jEPRsmDetailedResults.putClientProperty(JEditorPane.HONOR_DISPLAY_PROPERTIES, Boolean.TRUE);
+            jEPRsmDetailedResults.setFont(new Font("Tahoma", Font.PLAIN, 12));
+            jEPRsmDetailedResults.setText(rsmDetailedResults);
+            jEPRsmDetailedResults.setCaretPosition(0);
+            jEPRsmDetailedResults.setEditable(false);
+
+            JScrollPane scrollPane = new JScrollPane(jEPRsmDetailedResults);
+            scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+            scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+            scrollPane.setPreferredSize(new Dimension(310, 400));
+
+            JOptionPane.showMessageDialog(null, scrollPane, "RSM Detailed Results", JOptionPane.PLAIN_MESSAGE);
+        }
+    }//GEN-LAST:event_jBtnRsmDetailedActionPerformed
 
     /**
      * Triggers the application.
