@@ -182,6 +182,11 @@ public class ReadabilityFrame extends javax.swing.JFrame {
         });
 
         org.openide.awt.Mnemonics.setLocalizedText(disableRsm, org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.disableRsm.text")); // NOI18N
+        disableRsm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                disableRsmActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -832,6 +837,10 @@ public class ReadabilityFrame extends javax.swing.JFrame {
     private void jTFSelectedFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFSelectedFileActionPerformed
 
     }//GEN-LAST:event_jTFSelectedFileActionPerformed
+
+    private void disableRsmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disableRsmActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_disableRsmActionPerformed
 
     /**
      * Triggers the application.

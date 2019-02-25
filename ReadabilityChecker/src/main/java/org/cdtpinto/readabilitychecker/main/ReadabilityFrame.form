@@ -252,6 +252,9 @@
               <ResourceString bundle="org/cdtpinto/readabilitychecker/main/Bundle.properties" key="ReadabilityFrame.disableRsm.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="disableRsmActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
