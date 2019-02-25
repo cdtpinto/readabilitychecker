@@ -37,7 +37,7 @@ import org.cdtpinto.readabilitychecker.formulas.logic.BwLogic;
 public class ReadabilityFrame extends javax.swing.JFrame {
 
     //private static final Logger LOGGER = Logger.getLogger(ReadabilityFrame.class.getName());
-    private final String version = "1.1.0"; // current Readability Checker version
+    private final String version = "1.2.0"; // current Readability Checker version
     private List<SourceCodeFile> javaFiles = null;
     private double crProjectReadability;
     private double sresProjectReadability;
@@ -80,6 +80,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
         disableCommentsRatio = new javax.swing.JCheckBox();
         disableSres = new javax.swing.JCheckBox();
         disableBw = new javax.swing.JCheckBox();
+        disableRsm = new javax.swing.JCheckBox();
         jPanelSres = new javax.swing.JPanel();
         jLblSres = new javax.swing.JLabel();
         jBtnSresDetailed = new javax.swing.JButton();
@@ -88,10 +89,15 @@ public class ReadabilityFrame extends javax.swing.JFrame {
         jTFBw = new javax.swing.JTextField();
         jBtnBwDetailed = new javax.swing.JButton();
         jLblBw = new javax.swing.JLabel();
-        jBtnCheckReadability = new javax.swing.JButton();
-        jBtnExportResults = new javax.swing.JButton();
-        jBtnHelp = new javax.swing.JButton();
         jTFSelectedFile = new javax.swing.JTextField();
+        jPanel3 = new javax.swing.JPanel();
+        jBtnHelp = new javax.swing.JButton();
+        jBtnExportResults = new javax.swing.JButton();
+        jBtnCheckReadability = new javax.swing.JButton();
+        jPanelRsm = new javax.swing.JPanel();
+        jLblRsm = new javax.swing.JLabel();
+        jTFRsm = new javax.swing.JTextField();
+        jBtnRsmDetailed = new javax.swing.JButton();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -133,7 +139,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
             .addGroup(jPanelCommentsRatioLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLblCommentsRatio)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
                 .addComponent(jTFCommentsRatio, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jBtnCommentsRatioDetailed)
@@ -175,16 +181,20 @@ public class ReadabilityFrame extends javax.swing.JFrame {
             }
         });
 
+        org.openide.awt.Mnemonics.setLocalizedText(disableRsm, org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.disableRsm.text")); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(disableBw)
-                    .addComponent(disableSres)
-                    .addComponent(disableCommentsRatio))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(disableBw)
+                        .addComponent(disableSres)
+                        .addComponent(disableCommentsRatio))
+                    .addComponent(disableRsm))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -194,9 +204,11 @@ public class ReadabilityFrame extends javax.swing.JFrame {
                 .addComponent(disableCommentsRatio)
                 .addGap(32, 32, 32)
                 .addComponent(disableSres)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(34, 34, 34)
                 .addComponent(disableBw)
-                .addGap(16, 16, 16))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(disableRsm)
+                .addGap(15, 15, 15))
         );
 
         jLblSres.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -275,15 +287,36 @@ public class ReadabilityFrame extends javax.swing.JFrame {
             jPanelBwLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelBwLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelBwLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jBtnBwDetailed, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanelBwLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLblBw, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTFBw, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addGroup(jPanelBwLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jBtnBwDetailed, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLblBw, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTFBw, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLblBw.getAccessibleContext().setAccessibleName(org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.jLblBw.AccessibleContext.accessibleName")); // NOI18N
+
+        jTFSelectedFile.setEditable(false);
+        jTFSelectedFile.setText(org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.jTFSelectedFile.text")); // NOI18N
+        jTFSelectedFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTFSelectedFileActionPerformed(evt);
+            }
+        });
+
+        org.openide.awt.Mnemonics.setLocalizedText(jBtnHelp, org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.jBtnHelp.text")); // NOI18N
+        jBtnHelp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnHelpActionPerformed(evt);
+            }
+        });
+
+        org.openide.awt.Mnemonics.setLocalizedText(jBtnExportResults, org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.jBtnExportResults.text")); // NOI18N
+        jBtnExportResults.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnExportResultsActionPerformed(evt);
+            }
+        });
 
         org.openide.awt.Mnemonics.setLocalizedText(jBtnCheckReadability, org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.jBtnCheckReadability.text")); // NOI18N
         jBtnCheckReadability.setMaximumSize(new java.awt.Dimension(120, 25));
@@ -295,76 +328,114 @@ public class ReadabilityFrame extends javax.swing.JFrame {
             }
         });
 
-        org.openide.awt.Mnemonics.setLocalizedText(jBtnExportResults, org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.jBtnExportResults.text")); // NOI18N
-        jBtnExportResults.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnExportResultsActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(jBtnCheckReadability, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(79, 79, 79)
+                .addComponent(jBtnExportResults)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtnHelp)
+                .addGap(42, 42, 42))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBtnCheckReadability, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBtnExportResults)
+                    .addComponent(jBtnHelp))
+                .addContainerGap())
+        );
 
-        org.openide.awt.Mnemonics.setLocalizedText(jBtnHelp, org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.jBtnHelp.text")); // NOI18N
-        jBtnHelp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnHelpActionPerformed(evt);
-            }
-        });
+        jPanelRsm.setPreferredSize(new java.awt.Dimension(286, 60));
 
-        jTFSelectedFile.setEditable(false);
-        jTFSelectedFile.setText(org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.jTFSelectedFile.text")); // NOI18N
-        jTFSelectedFile.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTFSelectedFileActionPerformed(evt);
-            }
-        });
+        jLblRsm.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        org.openide.awt.Mnemonics.setLocalizedText(jLblRsm, org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.jLblRsm.text")); // NOI18N
+        jLblRsm.setMaximumSize(new java.awt.Dimension(41, 22));
+        jLblRsm.setMinimumSize(new java.awt.Dimension(41, 22));
+        jLblRsm.setPreferredSize(new java.awt.Dimension(41, 22));
+
+        jTFRsm.setEditable(false);
+        jTFRsm.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTFRsm.setText(org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.jTFRsm.text")); // NOI18N
+        jTFRsm.setOpaque(false);
+        jTFRsm.setPreferredSize(new java.awt.Dimension(6, 28));
+
+        org.openide.awt.Mnemonics.setLocalizedText(jBtnRsmDetailed, org.openide.util.NbBundle.getMessage(ReadabilityFrame.class, "ReadabilityFrame.jBtnRsmDetailed.text")); // NOI18N
+
+        javax.swing.GroupLayout jPanelRsmLayout = new javax.swing.GroupLayout(jPanelRsm);
+        jPanelRsm.setLayout(jPanelRsmLayout);
+        jPanelRsmLayout.setHorizontalGroup(
+            jPanelRsmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelRsmLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLblRsm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTFRsm, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jBtnRsmDetailed)
+                .addContainerGap())
+        );
+        jPanelRsmLayout.setVerticalGroup(
+            jPanelRsmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelRsmLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelRsmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanelRsmLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLblRsm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanelRsmLayout.createSequentialGroup()
+                        .addGroup(jPanelRsmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jBtnRsmDetailed, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTFRsm, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanelSres, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanelBw, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanelCommentsRatio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jBtnCheckReadability, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(60, 60, 60)
-                        .addComponent(jBtnExportResults)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jBtnHelp)
-                        .addGap(52, 52, 52)))
+                    .addComponent(jPanelSres, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelBw, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelCommentsRatio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelRsm, javax.swing.GroupLayout.DEFAULT_SIZE, 453, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jTFSelectedFile, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addComponent(jTFSelectedFile, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanelCommentsRatio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanelSres, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanelBw, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanelBw, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanelRsm, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTFSelectedFile, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtnCheckReadability, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBtnExportResults)
-                    .addComponent(jBtnHelp))
-                .addGap(20, 20, 20))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
         );
 
         pack();
@@ -802,23 +873,29 @@ public class ReadabilityFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox disableBw;
     private javax.swing.JCheckBox disableCommentsRatio;
+    private javax.swing.JCheckBox disableRsm;
     private javax.swing.JCheckBox disableSres;
     private javax.swing.JButton jBtnBwDetailed;
     private javax.swing.JButton jBtnCheckReadability;
     private javax.swing.JButton jBtnCommentsRatioDetailed;
     private javax.swing.JButton jBtnExportResults;
     private javax.swing.JButton jBtnHelp;
+    private javax.swing.JButton jBtnRsmDetailed;
     private javax.swing.JButton jBtnSresDetailed;
     private javax.swing.JLabel jLblBw;
     private javax.swing.JLabel jLblCommentsRatio;
+    private javax.swing.JLabel jLblRsm;
     private javax.swing.JLabel jLblSres;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanelBw;
     private javax.swing.JPanel jPanelCommentsRatio;
+    private javax.swing.JPanel jPanelRsm;
     private javax.swing.JPanel jPanelSres;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTFBw;
     private javax.swing.JTextField jTFCommentsRatio;
+    private javax.swing.JTextField jTFRsm;
     private javax.swing.JTextField jTFSelectedFile;
     private javax.swing.JTextField jTFSres;
     private javax.swing.JTextArea jTextArea1;

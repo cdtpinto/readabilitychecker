@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.cdtpinto</groupId>
     <artifactId>readabilitychecker</artifactId>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
     <packaging>nbm</packaging>
     <name>Readability Checker</name>
     <description>A plugin for the NetBeans IDE that estimates Java code readability using three different software readability formulas and metrics.</description>
@@ -201,6 +201,11 @@
         </dependency>
         <dependency>
             <groupId>raykernel.apps</groupId>
+            <artifactId>readability</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>it.unimol</groupId>
             <artifactId>readability</artifactId>
             <version>1.0</version>
         </dependency>
