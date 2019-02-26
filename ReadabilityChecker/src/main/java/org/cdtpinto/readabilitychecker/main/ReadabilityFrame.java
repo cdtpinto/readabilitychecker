@@ -569,6 +569,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
         crProjectReadability = 0;
         sresProjectReadability = 0;
         bwProjectReadability = 0;
+        rsmProjectReadability = 0;
         SourceCodeFileLogic scfl = new SourceCodeFileLogic();
 
         /* Get all Java files from the opened project */
@@ -704,11 +705,11 @@ public class ReadabilityFrame extends javax.swing.JFrame {
                     jTFRsm.setText("n/a");
                     jTFRsm.setToolTipText(null);
                 } else {
-                    jTFRsm.setText(String.valueOf(String.valueOf(new DecimalFormat("#0.00").format(currentlySelectedFile.getBw().getValue()))));
+                    jTFRsm.setText(String.valueOf(String.valueOf(new DecimalFormat("#0.00").format(currentlySelectedFile.getRsm().getValue()))));
                     jTFRsm.setToolTipText(currentlySelectedFile.getFile().getName() + " readability value");
                 }
 
-                rsmDetailedResults = RsmLogic.getDetailedResults(javaFiles, SourceCodeFileLogic.getOpenedProjectName(), bwProjectReadability);
+                rsmDetailedResults = RsmLogic.getDetailedResults(javaFiles, SourceCodeFileLogic.getOpenedProjectName(), rsmProjectReadability);
             }
 
             jTFSelectedFile.setText("Selected File: " + currentlySelectedFile.getFile().getName());
@@ -732,7 +733,7 @@ public class ReadabilityFrame extends javax.swing.JFrame {
      * Exports the detailed results for all the formulas in a text file.
      */
     private void jBtnExportResultsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnExportResultsActionPerformed
-        if (jTFCommentsRatio.getText().isEmpty() && jTFSres.getText().isEmpty() && jTFBw.getText().isEmpty()) {
+        if (jTFCommentsRatio.getText().isEmpty() && jTFSres.getText().isEmpty() && jTFBw.getText().isEmpty() && jTFRsm.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "No readability values calculated yet!", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             StringBuilder output = new StringBuilder();

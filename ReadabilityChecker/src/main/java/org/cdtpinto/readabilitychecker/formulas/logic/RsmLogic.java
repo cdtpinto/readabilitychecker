@@ -19,6 +19,8 @@ import org.cdtpinto.readabilitychecker.formulas.objects.RSM;
 public class RsmLogic {
 
     public void analyzeFile(SourceCodeFile scf) throws IOException {
+        System.out.println("-> "+scf.getFile().getAbsolutePath());
+        
         String rsmOutput = runRsmCommand(scf.getFile().getAbsolutePath());
 
         System.out.println("output -> " + rsmOutput);
@@ -37,7 +39,7 @@ public class RsmLogic {
         String output = "";
 
         if (SystemUtils.IS_OS_WINDOWS) {
-            ProcessBuilder builder = new ProcessBuilder("cmd.exe", "/c", "cd lib\readability && java -jar " + filePath);
+            ProcessBuilder builder = new ProcessBuilder("cmd.exe", "/c", "cd lib\\readability && java -jar rsm.jar " + filePath);
             builder.redirectErrorStream(true);
             Process p = builder.start();
             BufferedReader r = new BufferedReader(new InputStreamReader(p.getInputStream()));
@@ -48,7 +50,7 @@ public class RsmLogic {
                     break;
                 }
 
-                //System.out.println(line);
+                System.out.println(line);
                 if (line.contains("Class mean readability") || line.contains("Snippet readability")) {
                     output = line.toLowerCase();
                 }
